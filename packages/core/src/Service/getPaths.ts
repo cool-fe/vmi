@@ -28,7 +28,7 @@ export default function getServicePaths({
     ? join(absSrcPath, 'page')
     : join(absSrcPath, 'pages');
 
-  const tmpDir = ['.nuxt', env !== 'development' && env]
+  const tmpDir = ['.vmi', env !== 'development' && env]
     .filter(Boolean)
     .join('-');
   return normalizeWithWinPath({

@@ -5,6 +5,7 @@ import UmiError, { ERROR_CODE_MAP } from './UmiError';
 import Common from './Common';
 
 marked.setOptions({
+  //@ts-ignore
   renderer: new TerminalRenderer(),
 });
 

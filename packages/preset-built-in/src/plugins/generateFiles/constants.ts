@@ -1,9 +1,9 @@
-import { winPath } from '@umijs/utils';
+import { winPath } from '@vmi/utils';
 import { dirname } from 'path';
 
 export const runtimePath = winPath(
-  dirname(require.resolve('@umijs/runtime/package.json')),
+  dirname(require.resolve('@vmi/runtime/package.json')),
 );
 export const renderReactPath = winPath(
-  require.resolve('@umijs/renderer-react'),
+  ''
 );

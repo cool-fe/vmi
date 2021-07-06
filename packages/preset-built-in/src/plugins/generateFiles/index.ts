@@ -20,6 +20,21 @@ export default function (api: IApi) {
         // @ts-ignore
         enableTitle: api.config.title !== false,
         defaultTitle: api.config.title || '',
+        store:true,
+        features:{
+          meta:true,
+          transitions:true
+        },
+        globals:{
+          nuxt:'nuxt'
+        },
+        components:{},
+        appPath:'dddd',
+        nuxtOptions:{
+          vueMeta:{
+            dsx:1
+          }
+        }
       }),
     });
   });

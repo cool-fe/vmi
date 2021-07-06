@@ -1,8 +1,8 @@
-import { IApi, IBundlerConfigType, BundlerConfigType } from '@umijs/types';
-import { Bundler as DefaultBundler, webpack } from '@umijs/bundler-webpack';
+import { IApi, IBundlerConfigType, BundlerConfigType } from '@vmi/types';
+import { Bundler as DefaultBundler, webpack } from '@vmi/bundler-webpack';
 import { join, resolve } from 'path';
 import { existsSync, readdirSync, readFileSync } from 'fs';
-import { rimraf, chalk } from '@umijs/utils';
+import { rimraf, chalk } from '@vmi/utils';
 import zlib from 'zlib';
 
 type Env = 'development' | 'production';
@@ -39,7 +39,7 @@ export async function getBundleAndConfigs({
         port,
         hot: type === BundlerConfigType.csr && process.env.HMR !== 'none',
         entry: {
-          client: join(api.paths.absTmpPath!, 'nuxt/client.ts'),
+          client: join(api.paths.absTmpPath!, 'client.js'),
         },
         // @ts-ignore
         bundleImplementor,

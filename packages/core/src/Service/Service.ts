@@ -532,7 +532,7 @@ ${name} from ${plugin.path} register failed.`);
         args,
       },
     });
-    return this;
+    return this.runCommand({ name, args });
   }
 
   async runCommand({ name, args = {} }: { name: string; args?: any }) {

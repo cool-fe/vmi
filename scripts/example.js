@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const yParser = require('@umijs/deps/compiled/yargs-parser');
+const yParser = require('@vmi/deps/compiled/yargs-parser');
 
 const args = yParser(process.argv.slice(2), {
   alias: {
@@ -14,4 +14,4 @@ if (args._[1]) {
   process.env.APP_ROOT = args._[1];
 }
 
-require('../packages/umi/lib/cli');
+require('../packages/vmi/lib/cli');

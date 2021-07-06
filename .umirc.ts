@@ -1,5 +1,5 @@
 // Config for dumi
-import { defineConfig } from 'umi';
+import { defineConfig } from 'vmi';
 
 function getMenus(opts: { lang?: string; base: '/docs' | '/plugins' }) {
   const menus = {
