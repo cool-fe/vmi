@@ -1,11 +1,12 @@
-import { IApi, BundlerConfigType } from '@vmi/types';
 import { IServerOpts, Server } from '@vmi/server';
+import { BundlerConfigType, IApi } from '@vmi/types';
 import { delay } from '@vmi/utils';
 import assert from 'assert';
 import { cleanTmpPathExceptCache, getBundleAndConfigs } from '../buildDevUtils';
-import createRouteMiddleware from './createRouteMiddleware';
 import generateFiles from '../generateFiles';
+import createRouteMiddleware from './createRouteMiddleware';
 import { watchPkg } from './watchPkg';
+
 
 export default (api: IApi) => {
   const {
@@ -25,6 +26,52 @@ export default (api: IApi) => {
     }
     server?.listeningApp?.close();
   }
+
+  /**   test */
+
+  api.addEntryCode(
+    () =>
+    `
+    // addEntryCode
+    export const bootstrap = qiankun_genBootstrap(clientRender);
+    export const mount = qiankun_genMount('${api.config.mountElementId}');
+    export const unmount = qiankun_genUnmount('${api.config.mountElementId}');
+    export const update = qiankun_genUpdate();
+
+    if (!window.__POWERED_BY_QIANKUN__) {
+      bootstrap().then(mount);
+    }
+    `,
+  );
+
+  api.addEntryCodeAhead(() =>
+    `//addEntryCodeAhead\n import { _onCreate } from './plugin-locale/locale';\n_onCreate();`.trim(),
+  );
+
+  // @ts-ignore
+  api.addEntryImports(() => {
+    return {
+      source: '@@/plugin-qiankun/lifecycles',
+      specifier:
+        '{ genMount as qiankun_genMount, genBootstrap as qiankun_genBootstrap, genUnmount as qiankun_genUnmount, genUpdate as qiankun_genUpdate }',
+    };
+  });
+
+  api.addEntryImportsAhead(() => ({
+    source: `${require.resolve('webpack')}' //addEntryImportsAhead`,
+  }));
+
+  api.addPolyfillImports(() => {
+    return true
+      ? [
+          {
+            source: `${require.resolve('lodash')}' //addPolyfillImports`,
+          },
+        ]
+      : [];
+  });
+
+  /**test end */
 
   const sharedMap = new Map();
   api.onDevCompileDone(({ stats, type }) => {
@@ -109,14 +156,16 @@ export default (api: IApi) => {
                 api.logger.info(`Config ${reloadConfigs.join(', ')} changed.`);
                 api.restartServer();
               } else {
-                api.service.userConfig = api.service.configInstance.getUserConfig();
+                api.service.userConfig =
+                  api.service.configInstance.getUserConfig();
 
                 //           // TODO: simplify, 和 Service 里的逻辑重复了
                 //           // 需要 Service 露出方法
                 const defaultConfig = await api.applyPlugins({
                   key: 'modifyDefaultConfig',
                   type: api.ApplyPluginsType.modify,
-                  initialValue: await api.service.configInstance.getDefaultConfig(),
+                  initialValue:
+                    await api.service.configInstance.getDefaultConfig(),
                 });
                 api.service.config = await api.applyPlugins({
                   key: 'modifyConfig',
@@ -144,11 +193,8 @@ export default (api: IApi) => {
       await delay(500);
 
       // dev
-      const {
-        bundler,
-        bundleConfigs,
-        bundleImplementor,
-      } = await getBundleAndConfigs({ api, port });
+      const { bundler, bundleConfigs, bundleImplementor } =
+        await getBundleAndConfigs({ api, port });
 
       const opts: IServerOpts = bundler.setupDevServerOpts({
         bundleConfigs: bundleConfigs,

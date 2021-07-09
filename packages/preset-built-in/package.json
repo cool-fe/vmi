@@ -18,6 +18,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@vmi/client":"^1.0.0",
     "@hapi/joi": "16.1.8",
     "@types/merge-stream": "1.1.2",
     "@types/multer": "1.4.3",

@@ -1,6 +1,6 @@
 {
   "name": "@vmi/babel-preset-umi",
-  "version": "3.5.2",
+  "version": "1.0.0",
   "description": "@umijs/babel-preset-umi",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

@@ -8,7 +8,9 @@ export default function () {
       require.resolve('./plugins/routes'),
 
       // generate nuxt file
-      require.resolve('./plugins/generateFiles/router'),
+      require.resolve('./plugins/generateFiles/app-enhancers/entryImportsAhead'),
+
+      require.resolve('./plugins/generateFiles/routes'),
       require.resolve('./plugins/generateFiles/App'),
       require.resolve('./plugins/generateFiles/client'),
       require.resolve('./plugins/generateFiles/middleware'),

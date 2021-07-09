@@ -146,6 +146,7 @@ export default async function getConfig(
       '.js',
       '.web.jsx',
       '.jsx',
+      '.vue',
       '.web.ts',
       '.ts',
       '.web.tsx',

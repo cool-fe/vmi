@@ -1,114 +1,201 @@
-/* global VUEPRESS_TEMP_PATH */
 import Vue from 'vue'
-import Router from 'vue-router'
-import dataMixin from './dataMixin'
-import { routes } from '@internal/routes'
-import { siteData } from '@internal/siteData'
-import appEnhancers from '@internal/app-enhancers'
-import globalUIComponents from '@internal/global-ui'
-import ClientComputedMixin from '@transform/ClientComputedMixin'
-import VuePress from './plugins/VuePress'
-import { handleRedirectForCleanUrls } from './redirect.js'
-import { getLayoutAsyncComponent } from './util'
+import { decode, parsePath, withoutBase, withoutTrailingSlash, normalizeURL } from 'ufo'
+import layouts from '@internal/layoutComponents'
+import { getMatchedComponentsInstances, getChildrenComponentInstancesUsingFetch, promisify, globalHandleError, urlJoin, sanitizeComponent } from './utils'
+import NuxtError from './components/nuxt-error.vue'
+import NuxtLoading from './components/nuxt-loading.vue'
+import NuxtBuildIndicator from './components/nuxt-build-indicator.vue'
 
-// built-in components
-import Content from './components/Content.js'
-import ContentSlotsDistributor from './components/ContentSlotsDistributor'
-import OutboundLink from './components/OutboundLink.vue'
-import ClientOnly from './components/ClientOnly'
 
-// suggest dev server restart on base change
-if (module.hot) {
-  const prevBase = siteData.base
-  module.hot.accept(VUEPRESS_TEMP_PATH + '/internal/siteData.js', () => {
-    if (siteData.base !== prevBase) {
-      window.alert(
-        `[vuepress] Site base has changed. `
-        + `Please restart dev server to ensure correct asset paths.`
-      )
-    }
-  })
-}
+export default {
+  render (h, props) {
+    const loadingEl = h('NuxtLoading', { ref: 'loading' })
 
-Vue.config.productionTip = false
+    const layoutEl = h(this.layout || 'nuxt')
+    const templateEl = h('div', {
+      domProps: {
+        id: '__layout'
+      },
+      key: this.layoutName
+    }, [layoutEl])
 
-Vue.use(Router)
-Vue.use(VuePress)
-// mixin for exposing $site and $page
-Vue.mixin(dataMixin(ClientComputedMixin, siteData))
-// component for rendering markdown content and setting title etc.
-
-/* eslint-disable vue/match-component-file-name */
-Vue.component('Content', Content)
-Vue.component('ContentSlotsDistributor', ContentSlotsDistributor)
-Vue.component('OutboundLink', OutboundLink)
-// component for client-only content
-Vue.component('ClientOnly', ClientOnly)
-// core components
-Vue.component('Layout', getLayoutAsyncComponent('Layout'))
-Vue.component('NotFound', getLayoutAsyncComponent('NotFound'))
-
-// global helper for adding base path to absolute urls
-Vue.prototype.$withBase = function (path) {
-  const base = this.$site.base
-  if (path.charAt(0) === '/') {
-    return base + path.slice(1)
-  } else {
-    return path
-  }
-}
-
-export async function createApp (isServer) {
-  const routerBase = typeof window !== 'undefined' && window.__VUEPRESS_ROUTER_BASE__
-    ? window.__VUEPRESS_ROUTER_BASE__
-    : (siteData.routerBase || siteData.base)
-
-  const router = new Router({
-    base: routerBase,
-    mode: 'history',
-    fallback: false,
-    routes,
-    scrollBehavior (to, from, savedPosition) {
-      if (savedPosition) {
-        return savedPosition
-      } else if (to.hash) {
-        if (Vue.$vuepress.$get('disableScrollBehavior')) {
-          return false
+    const transitionEl = h('transition', {
+      props: {
+        name: 'layout',
+        mode: 'out-in'
+      },
+      on: {
+        beforeEnter (el) {
+          // Ensure to trigger scroll event after calling scrollBehavior
+          window.$nuxt.$nextTick(() => {
+            window.$nuxt.$emit('triggerScroll')
+          })
         }
-        return {
-          selector: decodeURIComponent(to.hash)
-        }
-      } else {
-        return { x: 0, y: 0 }
       }
+    }, [templateEl])
+
+    return h('div', {
+      domProps: {
+        id: '__nuxt'
+      }
+    }, [
+      loadingEl,
+      h(NuxtBuildIndicator),
+      transitionEl
+    ])
+  },
+
+  data: () => ({
+    isOnline: true,
+
+    layout: null,
+    layoutName: '',
+
+    nbFetching: 0
+    }),
+
+  beforeCreate () {
+    Vue.util.defineReactive(this, 'nuxt', this.$options.nuxt)
+  },
+  created () {
+    // Add this.$nuxt in child instances
+    this.$root.$options.$nuxt = this
+
+    if (process.client) {
+      // add to window so we can listen when ready
+      window.$nuxt = this
+
+      this.refreshOnlineStatus()
+      // Setup the listeners
+      window.addEventListener('online', this.refreshOnlineStatus)
+      window.addEventListener('offline', this.refreshOnlineStatus)
     }
-  })
+    // Add $nuxt.error()
+    this.error = this.nuxt.error
+    // Add $nuxt.context
+    this.context = this.$options.context
+  },
 
-  handleRedirectForCleanUrls(router)
+  async mounted () {
+    this.$loading = this.$refs.loading
+  },
 
-  const options = {}
+  watch: {
+    'nuxt.err': 'errorChanged'
+  },
 
-  try {
-    await Promise.all(
-      appEnhancers
-        .filter(enhancer => typeof enhancer === 'function')
-        .map(enhancer => enhancer({ Vue, options, router, siteData, isServer }))
-    )
-  } catch (e) {
-    console.error(e)
-  }
+  computed: {
+    isOffline () {
+      return !this.isOnline
+    },
 
-  const app = new Vue(
-    Object.assign(options, {
-      router,
-      render (h) {
-        return h('div', { attrs: { id: 'app' }}, [
-          h('RouterView', { ref: 'layout' }),
-          h('div', { class: 'global-ui' }, globalUIComponents.map(component => h(component)))
-        ])
+    isFetching () {
+      return this.nbFetching > 0
+    },
+  },
+
+  methods: {
+    refreshOnlineStatus () {
+      if (process.client) {
+        if (typeof window.navigator.onLine === 'undefined') {
+          // If the browser doesn't support connection status reports
+          // assume that we are online because most apps' only react
+          // when they now that the connection has been interrupted
+          this.isOnline = true
+        } else {
+          this.isOnline = window.navigator.onLine
+        }
       }
-    })
-  )
+    },
 
-  return { app, router }
+    async refresh () {
+      const pages = getMatchedComponentsInstances(this.$route)
+
+      if (!pages.length) {
+        return
+      }
+      this.$loading.start()
+
+      const promises = pages.map((page) => {
+        const p = []
+
+        // Old fetch
+        if (page.$options.fetch && page.$options.fetch.length) {
+          p.push(promisify(page.$options.fetch, this.context))
+        }
+        if (page.$fetch) {
+          p.push(page.$fetch())
+        } else {
+          // Get all component instance to call $fetch
+          for (const component of getChildrenComponentInstancesUsingFetch(page.$vnode.componentInstance)) {
+            p.push(component.$fetch())
+          }
+        }
+
+        if (page.$options.asyncData) {
+          p.push(
+            promisify(page.$options.asyncData, this.context)
+              .then((newData) => {
+                for (const key in newData) {
+                  Vue.set(page.$data, key, newData[key])
+                }
+              })
+          )
+        }
+
+        return Promise.all(p)
+      })
+      try {
+        await Promise.all(promises)
+      } catch (error) {
+        this.$loading.fail(error)
+        globalHandleError(error)
+        this.error(error)
+      }
+      this.$loading.finish()
+    },
+    errorChanged () {
+      if (this.nuxt.err) {
+        if (this.$loading) {
+          if (this.$loading.fail) {
+            this.$loading.fail(this.nuxt.err)
+          }
+          if (this.$loading.finish) {
+            this.$loading.finish()
+          }
+        }
+
+        let errorLayout = (NuxtError.options || NuxtError).layout;
+
+        if (typeof errorLayout === 'function') {
+          errorLayout = errorLayout(this.context)
+        }
+
+        this.setLayout(errorLayout)
+      }
+    },
+
+    setLayout (layout) {
+      if(layout && typeof layout !== 'string') {
+        throw new Error('[nuxt] Avoid using non-string value as layout property.')
+      }
+
+      if (!layout || !layouts['_' + layout]) {
+        layout = 'default'
+      }
+      this.layoutName = layout
+      this.layout = layouts['_' + layout]
+      return this.layout
+    },
+    loadLayout (layout) {
+      if (!layout || !layouts['_' + layout]) {
+        layout = 'default'
+      }
+      return Promise.resolve(layouts['_' + layout])
+    },
+  },
+
+  components: {
+    NuxtLoading
+  }
 }

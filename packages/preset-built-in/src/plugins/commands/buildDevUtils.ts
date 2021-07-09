@@ -39,7 +39,7 @@ export async function getBundleAndConfigs({
         port,
         hot: type === BundlerConfigType.csr && process.env.HMR !== 'none',
         entry: {
-          client: join(api.paths.absTmpPath!, 'client.js'),
+          client: join(require.resolve('clientEntry')),
         },
         // @ts-ignore
         bundleImplementor,

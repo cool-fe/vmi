@@ -1,8 +1,4 @@
-<% if (router.scrollBehavior) { %>
-<%= isTest ? '/* eslint-disable quotes, semi, indent, comma-spacing, key-spacing, object-curly-spacing, space-before-function-paren  */' : '' %>
-export default <%= serializeFunction(router.scrollBehavior) %>
-<%= isTest ? '/* eslint-enable quotes, semi, indent, comma-spacing, key-spacing, object-curly-spacing, space-before-function-paren  */' : '' %>
-<% } else { %>import { getMatchedComponents, setScrollRestoration } from './utils'
+import { getMatchedComponents, setScrollRestoration } from './utils'
 
 if (process.client) {
   if ('scrollRestoration' in window.history) {
@@ -43,7 +39,7 @@ export default function (to, from, savedPosition) {
     position = { x: 0, y: 0 }
   }
 
-  const nuxt = window.<%= globals.nuxt %>
+  const nuxt = window.$nuxt
 
   if (
     // Initial load (vuejs/vue-router#3199)
@@ -66,18 +62,11 @@ export default function (to, from, savedPosition) {
           hash = '#' + window.CSS.escape(hash.substr(1))
         }
         try {
-          const el = document.querySelector(hash)
-          if (el) {
+          if (document.querySelector(hash)) {
             // scroll to anchor by returning the selector
             position = { selector: hash }
-            // Respect any scroll-margin-top set in CSS when scrolling to anchor
-            const y = Number(getComputedStyle(el)['scroll-margin-top']?.replace('px', ''))
-            if (y) {
-              position.offset = { y }
-            }
           }
         } catch (e) {
-          <%= isTest ? '// eslint-disable-next-line no-console' : '' %>
           console.warn('Failed to save scroll position. Please add CSS.escape() polyfill (https://github.com/mathiasbynens/CSS.escape).')
         }
       }
@@ -85,4 +74,3 @@ export default function (to, from, savedPosition) {
     })
   })
 }
-<% } %>

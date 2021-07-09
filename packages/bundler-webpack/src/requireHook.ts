@@ -39,6 +39,7 @@ export function init() {
     [
       ['webpack', '@umijs/deps/compiled/webpack'],
       ['webpack/package.json', '@umijs/deps/compiled/webpack/pkgInfo'],
+      ['clientEntry','@vmi/client/src/client.js'],
       ...filesMap,
       // ['webpack-sources', '@umijs/deps/compiled/webpack/sources'],
     ].map(([request, replacement]) => [request, require.resolve(replacement)]),
