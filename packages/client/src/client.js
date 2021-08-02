@@ -598,7 +598,7 @@ function fixPrepatch (to, ___) {
 }
 
 function nuxtReady (_app) {
-  window.onNuxtReadyCbs.forEach((cb) => {
+  window.onNuxtReadyCbs && window.onNuxtReadyCbs.forEach((cb) => {
     if (typeof cb === 'function') {
       cb(_app)
     }
@@ -735,7 +735,7 @@ async function mountApp (__app) {
 
   // Mounts Vue app to DOM element
   const mount = () => {
-    _app.$mount('#__nuxt')
+    _app.$mount('#root')
 
     // Add afterEach router hooks
     router.afterEach(normalizeComponents)

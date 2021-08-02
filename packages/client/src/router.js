@@ -1,5 +1,5 @@
 import scrollBehavior from './router.scrollBehavior.js';
-import { getRoutes } from '@@/routes';
+import { getRoutes } from '@@/core/routes';
 import { normalizeURL } from 'ufo';
 import Vue from 'vue';
 import Router from 'vue-router';

@@ -6,7 +6,7 @@
       <p style="margin:64px 0">
         🍙 Extensible enterprise-level front-end application framework.
       </p>
-      <Link to="/about">About Us →</Link>
+      <router-link to="/about">About Us →</router-link>
     </div>
 </template>
 

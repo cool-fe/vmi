@@ -15,7 +15,8 @@ export default (api: IApi) => {
   });
 
   api.chainWebpack(async (memo) => {
-    memo.entry('client').add(join(require.resolve('@vmi/client')));
+    memo.entryPoints.delete('umi');
+    memo.entry('umi').add(require.resolve('@vmi/client/src/client'));
     return memo;
   });
 };
