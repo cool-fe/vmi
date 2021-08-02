@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const yParser = require('@vmi/deps/compiled/yargs-parser');
+const yParser = require('@umijs/deps/compiled/yargs-parser');
 
 const args = yParser(process.argv.slice(2), {
   alias: {

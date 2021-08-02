@@ -5,7 +5,7 @@ const {
 
 const webpackModuleNameMapper = files.reduce((memo, file) => {
   const fileName = getFileName(file);
-  memo[`^${file}$`] = `@umijs/deps/compiled/webpack/${fileName}`;
+  memo[`^${file}$`] = `@vmi/deps/compiled/webpack/${fileName}`;
   return memo;
 }, {});
 
@@ -13,7 +13,7 @@ module.exports = {
   // disable css files mock for bundler-webpack's css import tests
   moduleNameMapper: {
     // terser-webpack-plugin
-    '^webpack$': '@umijs/deps/compiled/webpack',
+    '^webpack$': '@vmi/deps/compiled/webpack',
     ...webpackModuleNameMapper,
   },
   transformIgnorePatterns: ['/node_modules/(?!.*@babel)[^/]+?/'],

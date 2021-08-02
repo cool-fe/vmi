@@ -28,16 +28,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@vmi/bundler-webpack": "3.5.2",
-    "@vmi/core": "^1.0.0",
-    "@vmi/deps": "3.5.2",
-    "@vmi/preset-built-in": "^1.0.0",
-    "@vmi/runtime": "3.5.2",
-    "@vmi/types": "3.5.2",
-    "@vmi/utils": "^1.0.0",
-    "react": "16.x",
-    "react-dom": "16.x",
-    "v8-compile-cache": "2.3.0"
+    "@vmi/preset-built-vmi": "^1.0.0",
+    "umi": "3.5.14",
+    "@umijs/deps":"^3.5.14"
   },
   "bin": {
     "vmi": "bin/vmi.js"

@@ -12,7 +12,9 @@ import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 
 /* Plugins */
 
-import nuxt_plugin_plugin_360b9564 from 'nuxt_plugin_plugin_360b9564' // Source: ./components/plugin.js (mode: 'all')
+// import nuxt_plugin_plugin_360b9564 from 'nuxt_plugin_plugin_360b9564' // Source: ./components/plugin.js (mode: 'all')
+
+const nuxt_plugin_plugin_360b9564 = function(){}
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
