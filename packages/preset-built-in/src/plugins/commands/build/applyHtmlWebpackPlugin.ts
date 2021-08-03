@@ -1,8 +1,5 @@
 import { BundlerConfigType, IApi, webpack } from '@umijs/types';
-import { existsSync } from 'fs';
 import { platform } from 'os';
-import { join } from 'path';
-import { OUTPUT_SERVER_FILENAME } from '../../features/ssr/constants';
 import { getHtmlGenerator } from '../htmlUtils';
 
 export function fixRoutePathInWindows(path?: string) {
@@ -15,28 +12,11 @@ export function fixRoutePathInWindows(path?: string) {
 }
 
 export default function (api: IApi) {
-  // maybe hack but useful
-  function ensureServerFileExisted() {
-    return new Promise((resolve) => {
-      const interval = setInterval(() => {
-        if (
-          existsSync(join(api.paths.absOutputPath!, OUTPUT_SERVER_FILENAME))
-        ) {
-          clearInterval(interval);
-          resolve({});
-        }
-      }, 300);
-    });
-  }
   class HtmlWebpackPlugin {
     apply(compiler: webpack.Compiler) {
       compiler.hooks.emit.tapPromise(
         'UmiHtmlGeneration',
         async (compilation: any) => {
-          if (api.config.ssr) {
-            // waiting umi.server.js emited
-            await ensureServerFileExisted();
-          }
           const html = getHtmlGenerator({ api });
           const routeMap = await api.applyPlugins({
             key: 'modifyExportRouteMap',

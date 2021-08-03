@@ -82,7 +82,7 @@ export default (api: IApi) => {
       // 使用 immutablePaths 避免 node_modules 的内容被写入缓存
       // tnpm 安装的依赖路径中同时包含包名和版本号，满足 immutablePaths 使用的条件
       // ref: smallfish
-      if (/*isTnpm*/ require('react-router/package').__npminstall_done) {
+      if (/*isTnpm*/ require('core-js/package').__npminstall_done) {
         // @ts-ignore
         memo.snapshot = {
           // @ts-ignore

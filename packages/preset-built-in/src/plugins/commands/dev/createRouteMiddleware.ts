@@ -1,7 +1,7 @@
 import { IApi, NextFunction, Request, Response } from '@umijs/types';
 import { extname, join } from 'path';
-import { matchRoutes, RouteConfig } from 'react-router-config';
 import { Stream } from 'stream';
+import type { RouteConfig } from 'vue-router';
 import { getHtmlGenerator } from '../htmlUtils';
 
 const ASSET_EXTNAMES = [
@@ -26,13 +26,13 @@ export default ({
       const html = getHtmlGenerator({ api });
 
       let route: RouteConfig = { path: req.path };
-      if (api.config.exportStatic) {
-        const routes = (await api.getRoutes()) as RouteConfig[];
-        const matchedRoutes = matchRoutes(routes, req.path);
-        if (matchedRoutes.length) {
-          route = matchedRoutes[matchedRoutes.length - 1].route;
-        }
-      }
+      // if (api.config.exportStatic) {
+      //   const routes = (await api.getRoutes()) as RouteConfig[];
+      //   const matchedRoutes = matchRoutes(routes, req.path);
+      //   if (matchedRoutes.length) {
+      //     route = matchedRoutes[matchedRoutes.length - 1].route;
+      //   }
+      // }
       const defaultContent = await html.getContent({
         route,
         chunks: sharedMap.get('chunks'),

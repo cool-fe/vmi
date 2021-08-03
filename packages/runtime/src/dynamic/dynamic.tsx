@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Loadable from './loadable';
 
 interface ILoadableOptions {

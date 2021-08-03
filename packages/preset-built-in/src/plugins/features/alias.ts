@@ -11,15 +11,7 @@ export default (api: IApi) => {
       schema(joi) {
         return joi.object();
       },
-      default: {
-        'react-router': dirname(require.resolve('react-router/package.json')),
-        'react-router-dom': dirname(
-          require.resolve('react-router-dom/package.json'),
-        ),
-        // 替换成带 query 的 history
-        // 由于用了 query-string，会额外引入 7.6K（压缩后，gzip 前），考虑换轻量的实现
-        history: dirname(require.resolve('history-with-query/package.json')),
-      },
+      default: {},
     },
   });
 
@@ -52,16 +44,7 @@ export default (api: IApi) => {
     }[] = await api.applyPlugins({
       key: 'addProjectFirstLibraries',
       type: api.ApplyPluginsType.add,
-      initialValue: [
-        {
-          name: 'react',
-          path: dirname(require.resolve(`react/package.json`)),
-        },
-        {
-          name: 'react-dom',
-          path: dirname(require.resolve(`react-dom/package.json`)),
-        },
-      ],
+      initialValue: [],
     });
     libraries.forEach((library) => {
       memo.resolve.alias.set(

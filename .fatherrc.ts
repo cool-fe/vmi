@@ -2,7 +2,6 @@ import { readdirSync } from 'fs';
 import { join } from 'path';
 
 // utils must build before core
-// runtime must build before renderer-react
 const headPkgs = [];
 const tailPkgs = ['vmi'];
 const ignorePkgs = ['client'];

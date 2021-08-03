@@ -8,13 +8,13 @@ export default function () {
       require.resolve('./plugins/routes'),
 
       // generate files
-      require.resolve('./plugins/generateFiles/core/history'),
+      // require.resolve('./plugins/generateFiles/core/history'),
       require.resolve('./plugins/generateFiles/core/plugin'),
       require.resolve('./plugins/generateFiles/core/polyfill'),
       require.resolve('./plugins/generateFiles/core/routes'),
       require.resolve('./plugins/generateFiles/core/umiExports'),
       require.resolve('./plugins/generateFiles/core/configTypes'),
-      require.resolve('./plugins/generateFiles/umi'),
+      // require.resolve('./plugins/generateFiles/umi'),
 
       // bundle configs
       require.resolve('./plugins/features/404'),
@@ -42,7 +42,7 @@ export default function () {
       require.resolve('./plugins/features/extraPostCSSPlugins'),
       require.resolve('./plugins/features/forkTSChecker'),
       require.resolve('./plugins/features/fastRefresh'),
-      require.resolve('./plugins/features/globalCSS'),
+      // require.resolve('./plugins/features/globalCSS'),
       require.resolve('./plugins/features/globalJS'),
       require.resolve('./plugins/features/hash'),
       require.resolve('./plugins/features/ignoreMomentLocale'),
@@ -60,7 +60,7 @@ export default function () {
       require.resolve('./plugins/features/proxy'),
       require.resolve('./plugins/features/publicPath'),
       require.resolve('./plugins/features/runtimePublicPath'),
-      require.resolve('./plugins/features/ssr/ssr'),
+      // require.resolve('./plugins/features/ssr/ssr'),
       require.resolve('./plugins/features/singular'),
       require.resolve('./plugins/features/styleLoader'),
       require.resolve('./plugins/features/targets'),
