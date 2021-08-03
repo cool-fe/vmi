@@ -1,8 +1,8 @@
-import { IApi, IRoute, webpack, IBundlerConfigType } from '@umijs/types';
-import { extname, join } from 'path';
-import { existsSync } from 'fs';
+import { IApi, IRoute, webpack } from '@umijs/types';
 import { lodash } from '@umijs/utils';
 import assert from 'assert';
+import { existsSync } from 'fs';
+import { extname, join } from 'path';
 
 interface IGetContentArgs {
   route: IRoute;
@@ -119,7 +119,7 @@ export function getHtmlGenerator({ api }: { api: IApi }): any {
       const htmlChunks = await api.applyPlugins({
         key: 'modifyHTMLChunks',
         type: api.ApplyPluginsType.modify,
-        initialValue: api.config.chunks || ['umi'],
+        initialValue: api.config.chunks || ['vmi'],
         args: {
           route: args.route,
           chunks: args.chunks,

@@ -1,7 +1,7 @@
 import { Service } from '@umijs/core';
-import { join } from 'path';
 import { rimraf } from '@umijs/utils';
 import { existsSync } from 'fs';
+import { join } from 'path';
 
 const fixtures = join(__dirname, '../../../fixtures');
 
@@ -17,7 +17,7 @@ test('build', async () => {
     name: 'build',
   });
 
-  expect(existsSync(join(cwd, 'dist', 'umi.js'))).toEqual(true);
+  expect(existsSync(join(cwd, 'dist', 'vmi.js'))).toEqual(true);
   // expect(existsSync(join(cwd, 'dist', 'index.html'))).toEqual(true);
   rimraf.sync(join(cwd, 'dist'));
 });

@@ -1,3 +1,10 @@
+
+import '@@/internal/app-enhancers/addEntryImportsAhead'
+import '@@/core/polyfill';
+import '@@/core/devScripts';
+import { plugin } from '@@/core/plugin';
+import '@@/core/pluginRegister';
+import { ApplyPluginsType } from '@umijs/runtime';
 import Vue from 'vue'
 import fetch from 'unfetch'
 import middleware from './middleware.js'
@@ -403,7 +410,6 @@ async function render (to, from, next) {
       return next()
     }
 
-    debugger
 
     let instances
     // Call asyncData & fetch hooks on components matched by the route.
@@ -815,3 +821,5 @@ async function mountApp (__app) {
     })
   })
 }
+
+import '@@/internal/app-enhancers/addEntryCode'

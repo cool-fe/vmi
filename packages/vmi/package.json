@@ -1,6 +1,6 @@
 {
   "name": "vmi",
-  "version": "3.5.2",
+  "version": "1.0.0",
   "description": "vmi",
   "main": "index.js",
   "types": "types.d.ts",
@@ -16,10 +16,10 @@
     "url": "https://github.com/umijs/umi"
   },
   "keywords": [
-    "umi"
+    "vmi"
   ],
   "authors": [
-    "chencheng <sorrycc@gmail.com> (https://github.com/sorrycc)"
+    "dashixiong <18570148691@163.com> (https://github.com/GGwujun)"
   ],
   "license": "MIT",
   "bugs": "http://github.com/umijs/umi/issues",
@@ -28,9 +28,15 @@
     "access": "public"
   },
   "dependencies": {
-    "@vmi/preset-built-vmi": "^1.0.0",
-    "umi": "3.5.14",
-    "@umijs/deps":"^3.5.14"
+    "@umijs/bundler-webpack": "3.5.2",
+    "@umijs/core": "3.5.2",
+    "@umijs/deps": "3.5.2",
+    "@umijs/preset-built-in": "3.5.2",
+    "@umijs/runtime": "3.5.2",
+    "@umijs/types": "3.5.2",
+    "@umijs/utils": "3.5.2",
+    "v8-compile-cache": "2.3.0",
+    "@vmi/preset-built-vmi": "^1.0.0"
   },
   "bin": {
     "vmi": "bin/vmi.js"

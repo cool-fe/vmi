@@ -1,12 +1,15 @@
 #!/usr/bin/env node
 
-require('../lib/cli');
+require('v8-compile-cache');
 
+const resolveCwd = require('@umijs/deps/compiled/resolve-cwd');
 
-// 额外的 umi 插件集
-process.env.UMI_PRESETS = require.resolve('@umijs/preset-largefish');
-
-// 执行 umi 命令
-const child = fork(require.resolve('umi/bin/umi'), process.argv.slice(2), {
-  stdio: 'inherit',
-});
+const { name, bin } = require('../package.json');
+const localCLI = resolveCwd.silent(`${name}/${bin['vmi']}`);
+if (!process.env.USE_GLOBAL_UMI && localCLI && localCLI !== __filename) {
+  const debug = require('@umijs/utils').createDebug('vmi:cli');
+  debug('Using local install of vmi');
+  require(localCLI);
+} else {
+  require('../lib/cli');
+}
