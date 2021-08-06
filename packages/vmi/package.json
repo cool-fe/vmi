@@ -32,7 +32,7 @@
     "@umijs/bundler-webpack": "3.5.2",
     "@umijs/core": "3.5.2",
     "@umijs/deps": "3.5.2",
-    "@umijs/preset-built-in": "3.5.2",
+    "@winfe/preset-built-in": "^1.0.3",
     "@umijs/types": "3.5.2",
     "@umijs/utils": "3.5.2",
     "@winfe/preset-built-vmi": "^1.0.3",
