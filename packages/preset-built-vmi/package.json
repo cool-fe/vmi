@@ -1,14 +1,14 @@
 {
   "name": "@vmi/preset-built-vmi",
   "version": "1.0.0",
-  "description": "@nuxt/preset-built-in",
+  "description": "@vmi/preset-built-in",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
     "lib"
   ],
   "keywords": [
-    "nuxt"
+    "vmi"
   ],
   "authors": [
     "dashixiong <dashixiong@tanzhou.cn>"

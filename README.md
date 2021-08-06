@@ -1,67 +1,27 @@
-English | [简体中文](./README.zh-CN.md)
+# vmi
 
-# umi
-
-[![codecov](https://codecov.io/gh/umijs/umi/branch/master/graph/badge.svg)](https://codecov.io/gh/umijs/umi) [![NPM version](https://img.shields.io/npm/v/umi.svg?style=flat)](https://npmjs.org/package/umi) [![CircleCI](https://circleci.com/gh/umijs/umi/tree/master.svg?style=svg)](https://circleci.com/gh/umijs/umi/tree/master) [![GitHub Actions status](https://github.com/umijs/umi/workflows/Node%20CI/badge.svg)](https://github.com/umijs/umi) [![NPM downloads](http://img.shields.io/npm/dm/umi.svg?style=flat)](https://npmjs.org/package/umi) [![Install size](https://badgen.net/packagephobia/install/umi)](https://packagephobia.now.sh/result?p=umi) [![brotli](https://badgen.net/bundlephobia/minzip/umi)](https://bundlephobia.com/result?p=umi)
-
-🍙 Extensible enterprise-level front-end application framework.
-
-> Please consider following this project's author, [sorrycc](https://github.com/sorrycc), and consider starring the project to show your ❤️ and support.
+🍙 插件化的企业级前端应用框架。
 
 ---
 
-## Features
+## 特性
 
-- 🎉 **Extensible**, Umi implements the complete lifecycle and makes it extensible, and Umi's internal functions are all plugins. Umi also support plugins and presets.
-- 📦 **Out of the Box**, Umi has built-in routing, building, deployment, testing, and so on. It only requires one dependency to get started. Umi also provides an integrated preset for React with rich functionaries.
-- 🐠 **Enterprise**, It has been verified by 3000+ projects in Ant Financial and projects of Alibaba, Youku, Netease, Fliggy, KouBei and other companies.
-- 🚀 **Self Development**, Including micro frontend library, component packaging, documentation tools, request library, hooks library, data flow, etc.
-- 🌴 **Perfect Routing**, Supports both configuration routing and convention routing, while with functional completeness, such as dynamic routing, nested routing, permission routing, and so on.
-- 🚄 **Future Ready**, Umi's community is also exploring new technologies. For example, modern mode, webpack @ 5, automated external, bundler less, etc.
-- 🌈 **Support SSR**, Starts Server-Side Render friendly.
+- 🎉 **可扩展** Vmi 实现了完整的生命周期，并使其插件化，Umi 内部功能也全由插件完成。此外还支持插件和插件集，以满足功能和垂直域的分层需求。
+- 📦 **开箱即用** Vmi 内置了路由、构建、部署、测试等，仅需一个依赖即可上手开发。并且还提供针对 Vue 的集成插件集，内涵丰富的功能，可满足日常 80% 的开发需求。
+- 🌴 **完备路由**，同时支持配置式路由和约定式路由，同时保持功能的完备性，比如动态路由、嵌套路由、权限路由等等。
+- 🚄 **面向未来**，在满足需求的同时，我们也不会停止对新技术的探索。比如 dll 提速、modern mode、webpack@5、自动化 external、bundler less 等等。
 
-## Getting Started
+## 快速上手
 
-[![Edit umi](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/umi-2d4js?autoresize=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2Fpages%2Findex.tsx&theme=dark)
-
-Manually,
+手动创建文件，
 
 ```bash
-# Create directory
+# 创建目录
 $ mkdir myapp && cd myapp
 
-# Install dependency
-$ yarn add umi
+# 安装依赖
+$ yarn add winex
 
-# Create page
-$ npx umi g page index --typescript --less
-
-# Start development
-$ npx umi dev
+# 启动开发
+$ npx winex dev
 ```
-
-Or [Getting Started with Boilerplate](https://umijs.org/docs/getting-started).
-
-## Links
-
-- [Top Feature Requests](https://github.com/umijs/umi/issues?q=is%3Aissue+is%3Aopen+label%3Atype%28enhancement%29+sort%3Areactions-%2B1-desc+) (Add your own votes using the 👍 reaction)
-- [Newest Feature Requests](https://github.com/umijs/umi/issues?q=is%3Aopen+is%3Aissue+label%3Atype%28enhancement%29)
-- [Top Bugs 😱](https://github.com/umijs/umi/issues?q=is%3Aissue+is%3Aopen+label%3Atype%28bug%29+sort%3Areactions-%2B1-desc+) (Add your own votes using the 👍 reaction)
-- [Newest Bugs 🙀](https://github.com/umijs/umi/issues?q=is%3Aopen+is%3Aissue+label%3Atype%28bug%29)
-- [Benchmarks](https://umijs.github.io/umi/dev/bench/index.html)
-
-## Contributors
-
-This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-
-<a href="https://github.com/umijs/umi/graphs/contributors"><img src="https://opencollective.com/umi/contributors.svg?width=890&button=false" /></a>
-
-## Feedback
-
-| Github Issue | 微信群 |
-| --- | --- |
-| [umijs/umi/issues](https://github.com/umijs/umi/issues) | <img src="https://img.alicdn.com/imgextra/i1/O1CN01jmrjUx1yw5LcPFMx0_!!6000000006642-0-tps-430-430.jpg" width="60" /> 关注后回复「umi」 |
-
-## LICENSE
-
-[MIT](https://github.com/umijs/umi/blob/master/LICENSE)

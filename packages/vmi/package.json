@@ -1,5 +1,5 @@
 {
-  "name": "vmi",
+  "name": "@winfe/vmi",
   "version": "1.0.0",
   "description": "vmi",
   "main": "index.js",

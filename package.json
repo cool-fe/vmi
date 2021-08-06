@@ -22,7 +22,9 @@
     "sync:tnpm": "node -e 'require(\"./scripts/syncTNPM\")()'",
     "now-build": "echo \"Hello\"",
     "benchmark": "node scripts/benchmarks.js",
-    "update:deps": "yarn upgrade-interactive --latest"
+    "update:deps": "yarn upgrade-interactive --latest",
+    "bootstrap2": "lerna clean -y && lerna bootstrap",
+    "publish": "node ./scripts/release.js"
   },
   "gitHooks": {
     "pre-commit": "lint-staged",
