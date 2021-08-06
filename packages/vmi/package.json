@@ -25,7 +25,8 @@
   "bugs": "http://github.com/umijs/umi/issues",
   "homepage": "https://github.com/umijs/umi/tree/master/packages/umi#readme",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "http://registry.npmjs.org/"
   },
   "dependencies": {
     "@umijs/bundler-webpack": "3.5.2",
