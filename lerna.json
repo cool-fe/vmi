@@ -13,6 +13,23 @@
     },
     "cacheDir": ".changelog"
   },
+  "command": {
+    "bootstrap": {
+      "noCi": true,
+      "ignorePrepublish": true,
+      "message": "chore(release): publish %s [skip ci]"
+    },
+    "publish": {
+      "ignoreChanges": ["*.md", ".npmrc"],
+      "registry": "http://registry.npmjs.org/",
+      "version": ["patch"]
+    },
+    "version": {
+      "conventionalCommits": true,
+      "includeMergedTags": true,
+      "ignoreChanges": ["*.md", ".npmrc"]
+    }
+  },
   "ignoreChanges": [
     "**/*.md",
     "**/*.test.ts",
