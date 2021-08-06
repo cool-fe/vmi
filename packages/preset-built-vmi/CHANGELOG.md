@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.6 (2021-08-06)
+
+
+### Bug Fixes
+
+* 修改vmi的包名 ([79ac061](https://github.com/cool-fe/vmi/commit/79ac061f061220089a9adf6efbe48509572c62d7))
+
+
+
+
+
 ## 1.0.5 (2021-08-06)
 
 
