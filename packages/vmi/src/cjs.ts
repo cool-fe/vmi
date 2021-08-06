@@ -3,7 +3,7 @@ import { defineConfig } from './defineConfig';
 import { Service } from './ServiceWithBuiltIn';
 
 export * from '@umijs/types';
-export * from '@vmi/runtime';
+export * from '@winfe/runtime';
 export { utils };
 export { Service };
 export { defineConfig };

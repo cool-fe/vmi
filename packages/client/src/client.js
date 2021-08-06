@@ -4,7 +4,7 @@ import '@@/core/polyfill';
 import '@@/core/devScripts';
 import { plugin } from '@@/core/plugin';
 import '@@/core/pluginRegister';
-import { ApplyPluginsType } from '@vmi/runtime';
+import { ApplyPluginsType } from '@winfe/runtime';
 import Vue from 'vue'
 import fetch from 'unfetch'
 import middleware from './middleware.js'

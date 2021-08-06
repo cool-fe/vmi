@@ -184,7 +184,7 @@ function createLoadableComponent(loadFn, options) {
 
     if (state.loading || state.error) {
       if (process.env.NODE_ENV === 'development' && state.error) {
-        console.error(`[@vmi/runtime] load component failed`, state.error);
+        console.error(`[@winfe/runtime] load component failed`, state.error);
       }
       return createElement(opts.loading, {
         isLoading: state.loading,
