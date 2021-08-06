@@ -29,7 +29,7 @@
     "@umijs/bundler-webpack": "3.5.2",
     "@umijs/deps": "3.5.2",
     "@umijs/renderer-mpa": "3.5.2",
-    "@winfe/runtime": "1.0.0",
+    "@winfe/runtime": "^1.0.0",
     "@umijs/server": "3.5.2",
     "@umijs/types": "3.5.2",
     "@umijs/utils": "3.5.2",

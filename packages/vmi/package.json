@@ -32,7 +32,7 @@
     "@umijs/core": "3.5.2",
     "@umijs/deps": "3.5.2",
     "@umijs/preset-built-in": "3.5.2",
-    "@winfe/runtime": "3.5.2",
+    "@winfe/runtime": "^1.0.0",
     "@umijs/types": "3.5.2",
     "@umijs/utils": "3.5.2",
     "v8-compile-cache": "2.3.0",
