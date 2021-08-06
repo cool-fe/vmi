@@ -1,10 +1,10 @@
 import { BundlerConfigType } from '@umijs/types';
 import { chalk, createDebug, mkdirp } from '@umijs/utils';
+import { IApi } from '@winfe/vmi';
 import assert from 'assert';
 import { existsSync, readFileSync } from 'fs';
 import mime from 'mime';
 import { dirname, join, parse } from 'path';
-import { IApi } from 'vmi';
 import webpack from 'webpack';
 import BabelImportRedirectPlugin from './babel-import-redirect-plugin';
 import { DEFAULT_MF_NAME, MF_VA_PREFIX } from './constants';

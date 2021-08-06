@@ -3025,24 +3025,6 @@
     "@types/react" "*"
     "@types/react-router" "*"
 
-"@types/react-router-config@5.0.2":
-  version "5.0.2"
-  resolved "https://registry.npmjs.org/@types/react-router-config/-/react-router-config-5.0.2.tgz#4d3b52e71ed363a1976a12321e67b09a99ad6d10"
-  integrity sha512-WOSetDV3YPxbkVJAdv/bqExJjmcdCi/vpCJh3NfQOy1X15vHMSiMioXIcGekXDJJYhqGUMDo9e337mh508foAA==
-  dependencies:
-    "@types/history" "*"
-    "@types/react" "*"
-    "@types/react-router" "*"
-
-"@types/react-router-config@^5.0.2":
-  version "5.0.3"
-  resolved "https://registry.npmjs.org/@types/react-router-config/-/react-router-config-5.0.3.tgz#72a53561bcb5e13b82c576527b818fa2579591c7"
-  integrity sha512-38vpjXic0+E2sIBEKUe+RrCmbc8RqcQhNV8OmU3KUcwgy/yzTeo67MhllP+0zjZWNr7Lhw+RnUkL0hzkf63nUQ==
-  dependencies:
-    "@types/history" "*"
-    "@types/react" "*"
-    "@types/react-router" "*"
-
 "@types/react-router-dom@5.1.7":
   version "5.1.7"
   resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-5.1.7.tgz#a126d9ea76079ffbbdb0d9225073eb5797ab7271"
@@ -3390,32 +3372,6 @@
   resolved "https://registry.yarnpkg.com/@umijs/plugin-analytics/-/plugin-analytics-0.2.2.tgz#575fd231d4327ea13413217aa1b5fc6bdd89465e"
   integrity sha512-dVDzUfgIdEwdCC6a5IsMYpIPI+bEZjBEqIhAvw9dic6Vk77w9RxQxyRfW11dDmdXLAwWphp22NntQNt1ejZPtg==
 
-"@umijs/preset-built-in@3.5.2":
-  version "3.5.2"
-  resolved "https://registry.npmjs.org/@umijs/preset-built-in/-/preset-built-in-3.5.2.tgz#348c93a21f68b2b19c716005c6ab182e4ec21554"
-  integrity sha512-SH4iSSC5LEhBNzthmbLA3fgb0smBZrTT/rW7Xrp2zYcPyQobQiHpp3GJXnnXhai4qxaX284Vr7glYrwPq9tL7A==
-  dependencies:
-    "@types/react-router-config" "5.0.2"
-    "@umijs/babel-preset-umi" "3.5.2"
-    "@umijs/bundler-webpack" "3.5.2"
-    "@umijs/deps" "3.5.2"
-    "@umijs/renderer-mpa" "3.5.2"
-    "@umijs/renderer-react" "3.5.2"
-    "@umijs/runtime" "3.5.2"
-    "@umijs/server" "3.5.2"
-    "@umijs/types" "3.5.2"
-    "@umijs/utils" "3.5.2"
-    core-js "3.6.5"
-    es-module-lexer "0.6.0"
-    es5-imcompatible-versions "^0.1.62"
-    history-with-query "4.10.4"
-    mime "1.3.0"
-    react-refresh "0.9.0"
-    react-router "5.2.0"
-    react-router-config "5.1.1"
-    react-router-dom "5.2.0"
-    regenerator-runtime "0.13.5"
-
 "@umijs/preset-dumi@^1.1.6":
   version "1.1.24"
   resolved "https://registry.yarnpkg.com/@umijs/preset-dumi/-/preset-dumi-1.1.24.tgz#386df38f69ab0ec7d479a88423b6558bde6c91d6"
@@ -3472,17 +3428,6 @@
     "@types/react" "^16.9.43"
     "@types/react-dom" "^16.9.8"
     "@umijs/runtime" "3.5.2"
-
-"@umijs/renderer-react@3.5.2":
-  version "3.5.2"
-  resolved "https://registry.npmjs.org/@umijs/renderer-react/-/renderer-react-3.5.2.tgz#ab861db2569c78688d86d3d35fa8d7dd40a9035f"
-  integrity sha512-9IzNOOQB6evomQQ+i72iZUHBLdlhdQqomo460sIVpdPFYUIONLFrqLsBBbwRwS4oKYi5CQAB50+z6exO/OktKg==
-  dependencies:
-    "@types/react" "^16.9.43"
-    "@types/react-dom" "^16.9.8"
-    "@types/react-router-config" "^5.0.2"
-    "@umijs/runtime" "3.5.2"
-    react-router-config "5.1.1"
 
 "@umijs/runtime@3.5.2":
   version "3.5.2"
@@ -12878,18 +12823,6 @@ react-is@^17.0.1:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
-
-react-refresh@0.9.0:
-  version "0.9.0"
-  resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.9.0.tgz#71863337adc3e5c2f8a6bfddd12ae3bfe32aafbf"
-  integrity sha512-Gvzk7OZpiqKSkxsQvO/mbTN1poglhmAV7gR/DdIrRrSMXraRQQlfikRJOr3Nb9GTMPC5kof948Zy6jJZIFtDvQ==
-
-react-router-config@5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/react-router-config/-/react-router-config-5.1.1.tgz#0f4263d1a80c6b2dc7b9c1902c9526478194a988"
-  integrity sha512-DuanZjaD8mQp1ppHjgnnUnyOlqYXZVjnov/JzFhjLEwd3Z4dYjMSnqrEzzGThH47vpCOqPPwJM2FtthLeJ8Pbg==
-  dependencies:
-    "@babel/runtime" "^7.1.2"
 
 react-router-dom@5.2.0:
   version "5.2.0"

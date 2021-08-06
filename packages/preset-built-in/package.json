@@ -34,6 +34,7 @@
     "@umijs/types": "3.5.2",
     "@umijs/utils": "3.5.2",
     "@winfe/runtime": "^1.0.5",
+    "@winfe/vmi": "^1.0.5",
     "core-js": "3.6.5",
     "es-module-lexer": "0.6.0",
     "es5-imcompatible-versions": "^0.1.62",

@@ -4,7 +4,7 @@ import { deepmerge, rimraf } from '@umijs/utils';
 import { existsSync } from 'fs';
 import { join } from 'path';
 import { Stream } from 'stream';
-import { OUTPUT_SERVER_FILENAME } from '../features/ssr/constants';
+// import { OUTPUT_SERVER_FILENAME } from '../features/ssr/constants';
 import { isDynamicRoute, streamToString } from '../utils';
 
 export default (api: IApi) => {
@@ -92,7 +92,7 @@ export default (api: IApi) => {
     const { route } = args;
     const serverFilePath = join(
       api.paths.absOutputPath!,
-      OUTPUT_SERVER_FILENAME,
+      // OUTPUT_SERVER_FILENAME,
     );
     const { ssr } = api.config;
     if (
@@ -142,7 +142,7 @@ export default (api: IApi) => {
         // remove umi.server.js
         const serverFilePath = join(
           api.paths.absOutputPath!,
-          OUTPUT_SERVER_FILENAME,
+          // OUTPUT_SERVER_FILENAME,
         );
         if (existsSync(serverFilePath)) {
           rimraf.sync(serverFilePath);

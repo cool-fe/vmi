@@ -1,5 +1,5 @@
 import { BundlerConfigType } from '@umijs/types';
-import { IApi } from 'vmi';
+import { IApi } from '@winfe/vmi';
 
 export default (api: IApi) => {
   api.describe({

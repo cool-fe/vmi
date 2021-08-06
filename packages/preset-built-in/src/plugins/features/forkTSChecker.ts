@@ -1,4 +1,4 @@
-import { IApi, utils } from 'vmi';
+import { IApi, utils } from '@winfe/vmi';
 
 export default (api: IApi) => {
   const { deepmerge } = utils;
