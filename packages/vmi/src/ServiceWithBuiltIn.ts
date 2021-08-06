@@ -11,8 +11,8 @@ class Service extends CoreService {
     super({
       ...opts,
       presets: [
-        require.resolve('@vmi/preset-built-in'),
-        require.resolve('@vmi/preset-built-vmi'),
+        require.resolve('@winfe/preset-built-in'),
+        require.resolve('@winfe/preset-built-vmi'),
         ...(opts.presets || []),
       ],
       plugins: [require.resolve('./plugins/umiAlias'), ...(opts.plugins || [])],
