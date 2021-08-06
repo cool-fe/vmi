@@ -4960,7 +4960,7 @@ chokidar@^2.1.8:
   optionalDependencies:
     fsevents "^1.2.7"
 
-chokidar@^3.0.2, chokidar@^3.4.1:
+chokidar@^3.0.2, chokidar@^3.4.1, chokidar@^3.4.2:
   version "3.5.2"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.5.2.tgz#dba3976fcadb016f66fd365021d91600d01c1e75"
   integrity sha512-ekGhOnNVPgT77r4K/U3GDhu+FQ2S8TnK/s2KbIGXi0SZWuwkZ2QNyfWdZW+TVfn84DpEP7rLeCt2UI6bJ8GwbQ==
@@ -7086,17 +7086,19 @@ fork-stream@^0.0.4:
   resolved "https://registry.yarnpkg.com/fork-stream/-/fork-stream-0.0.4.tgz#db849fce77f6708a5f8f386ae533a0907b54ae70"
   integrity sha1-24Sfznf2cIpfjzhq5TOgkHtUrnA=
 
-fork-ts-checker-webpack-plugin@5.0.12:
-  version "5.0.12"
-  resolved "https://registry.yarnpkg.com/fork-ts-checker-webpack-plugin/-/fork-ts-checker-webpack-plugin-5.0.12.tgz#6bd63e224c20a073c450ccde0daad0db365d4b8b"
-  integrity sha512-B/NZNlMq6nuPosU6M+QKxRqX9irG/8M2GVwV/4ufzM2R3cm7XQVcG4zLibJowE7e194Qw8/qppjiz+UBKzyZxw==
+fork-ts-checker-webpack-plugin@6.3.1:
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/fork-ts-checker-webpack-plugin/-/fork-ts-checker-webpack-plugin-6.3.1.tgz#938535f844cdddf6796211e5761da27341b9fcd3"
+  integrity sha512-uxqlKTEeSJ5/JRr0zaCiw2U+kOV8F4/MhCnnRf6vbxj4ZU3Or0DLl/0CNtXro7uLWDssnuR7wUN7fU9w1I0REA==
   dependencies:
     "@babel/code-frame" "^7.8.3"
     "@types/json-schema" "^7.0.5"
     chalk "^4.1.0"
+    chokidar "^3.4.2"
     cosmiconfig "^6.0.0"
     deepmerge "^4.2.2"
     fs-extra "^9.0.0"
+    glob "^7.1.6"
     memfs "^3.1.2"
     minimatch "^3.0.4"
     schema-utils "2.7.0"
