@@ -1,5 +1,5 @@
 {
-  "name": "@vmi/runtime",
+  "name": "@winfe/runtime",
   "version": "1.0.0",
   "description": "@vmi/runtime",
   "main": "dist/index.js",

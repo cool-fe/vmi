@@ -1,7 +1,7 @@
 {
-  "name": "@vmi/preset-built-in",
+  "name": "@winfe/preset-built-in",
   "version": "1.0.0",
-  "description": "@vmi/preset-built-in",
+  "description": "@winfe/preset-built-in",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -13,7 +13,7 @@
     "url": "https://github.com/umijs/umi"
   },
   "keywords": [
-    "vmi"
+    "winfe"
   ],
   "authors": [
     "dashixiong <18570148691@163.com> (https://github.com/GGwujun)"
@@ -29,7 +29,7 @@
     "@umijs/bundler-webpack": "3.5.2",
     "@umijs/deps": "3.5.2",
     "@umijs/renderer-mpa": "3.5.2",
-    "@vmi/runtime": "1.0.0",
+    "@winfe/runtime": "1.0.0",
     "@umijs/server": "3.5.2",
     "@umijs/types": "3.5.2",
     "@umijs/utils": "3.5.2",
