@@ -10,6 +10,7 @@ export default (api: IApi) => {
   api.onPatchRoutesBefore(async ({ routes, parentRoute }) => {
     // only deal with the top level routes
     if (!parentRoute) {
+      //@ts-ignore
       const result = await getRouteConfig(api, ctx.opts);
 
       if (ctx.opts?.isIntegrate) {
@@ -26,7 +27,7 @@ export default (api: IApi) => {
   });
 
   api.register({
-    key: 'dumi.getRootRoute',
+    key: 'vmi.getRootRoute',
     async fn(oRoutes: IRoute[] = []) {
       const findRoot = (routes: IRoute[]) => {
         for (let i = 0; i < routes.length; i += 1) {

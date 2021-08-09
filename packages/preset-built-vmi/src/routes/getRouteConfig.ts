@@ -1,11 +1,11 @@
+import type { IApi, IRoute } from '@umijs/types';
+import { createDebug } from '@umijs/utils';
 import fs from 'fs';
 import path from 'path';
 //@ts-ignore
 import slash from 'slash2';
-import type { IApi, IRoute } from '@umijs/types';
-import { createDebug } from '@umijs/utils';
-import getRouteConfigFromDir from './getRouteConfigFromDir';
 import type { IDumiOpts } from '../index';
+import getRouteConfigFromDir from './getRouteConfigFromDir';
 
 const debug = createDebug('dumi:routes:get');
 
@@ -16,10 +16,10 @@ export default async (api: IApi, opts: IDumiOpts): Promise<IRoute[]> => {
   const config: IRoute[] = [];
   const childRoutes: IRoute[] = [];
   const userRoutes =
-    opts.isIntegrate || api.args?.dumi !== undefined
+    opts.isIntegrate || api.args?.vmi !== undefined
       ? (
           await api.applyPlugins({
-            key: 'dumi.getRootRoute',
+            key: 'vmi.getRootRoute',
             type: api.ApplyPluginsType.modify,
             initialValue: api.userConfig.routes,
           })
@@ -29,9 +29,10 @@ export default async (api: IApi, opts: IDumiOpts): Promise<IRoute[]> => {
   if (userRoutes) {
     // only apply user's routes if there has routes config
     childRoutes.push(
+      //@ts-ignore
       ...userRoutes.map(({ component, ...routeOpts }) => ({
         component: path.isAbsolute(component as string)
-          ? slash(path.relative(paths.cwd, component))
+          ? slash(path.relative(paths.cwd || '', component))
           : component,
         ...routeOpts,
       })),
@@ -41,17 +42,22 @@ export default async (api: IApi, opts: IDumiOpts): Promise<IRoute[]> => {
     // generate routes automatically if there has no routes config
     // find routes from include path & find examples from example path
 
-    for (const item of [
-      path.resolve(paths.cwd as string, 'src'),
-      path.resolve(paths.cwd as string, 'pages'),
-    ]) {
-      const docsPath = path.isAbsolute(item)
-        ? item
-        : path.join(paths.cwd as string, item);
-
-      if (fs.existsSync(docsPath) && fs.statSync(docsPath).isDirectory()) {
+    if (paths.absPagesPath) {
+      if (
+        fs.existsSync(paths.absPagesPath) &&
+        fs.statSync(paths.absPagesPath).isDirectory()
+      ) {
         debug('Generating routes...');
-        childRoutes.push(...(await getRouteConfigFromDir(docsPath, opts)));
+
+        childRoutes.push(
+          ...(await getRouteConfigFromDir(
+            path.relative(
+              paths.absSrcPath as string,
+              paths.absPagesPath as string,
+            ),
+            opts,
+          )),
+        );
       }
     }
 

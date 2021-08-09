@@ -1,7 +1,7 @@
 
 import '@@/internal/app-enhancers/addEntryImportsAhead'
 import '@@/core/polyfill';
-import '@@/core/devScripts';
+// import '@@/core/devScripts';
 import { plugin } from '@@/core/plugin';
 import '@@/core/pluginRegister';
 import { ApplyPluginsType } from '@winfe/runtime';

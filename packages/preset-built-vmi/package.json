@@ -26,6 +26,8 @@
     "@types/react-router-config": "5.0.1",
     "@types/serialize-javascript": "1.5.0",
     "@winfe/client": "^1.0.5",
+    "@winfe/theme-helper": "^0.0.4",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
     "cliui": "6.0.0",
     "es5-imcompatible-versions": "^0.1.62",
     "fork-ts-checker-webpack-plugin": "5.0.12",

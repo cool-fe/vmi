@@ -5,9 +5,6 @@ export default function () {
     plugins: [
       require.resolve('./plugins/features/init'),
 
-      // misc
-      require.resolve('./plugins/routes'),
-
       // generate nuxt file
       require.resolve(
         './plugins/generateFiles/internals/app-enhancers/entryImportsAhead',
@@ -19,6 +16,7 @@ export default function () {
       require.resolve('./plugins/features/webpack'),
       require.resolve('./plugins/features/outputPath'),
       require.resolve('./plugins/features/alias'),
+      // require.resolve('./plugins/features/component'),
     ],
   };
 }

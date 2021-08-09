@@ -15,7 +15,10 @@ class Service extends CoreService {
         require.resolve('@winfe/preset-built-vmi'),
         ...(opts.presets || []),
       ],
-      plugins: [require.resolve('./plugins/umiAlias'), ...(opts.plugins || [])],
+      plugins: [
+        require.resolve('./plugins/umiAlias'),
+        ...(opts.plugins || []),
+      ],
     });
   }
 }

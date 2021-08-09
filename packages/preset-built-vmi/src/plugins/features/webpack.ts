@@ -1,9 +1,8 @@
 import { IApi } from '@umijs/types';
-import { resolve, winPath } from '@umijs/utils';
-import { dirname, resolve as $resolve, join } from 'path';
+import { dirname } from 'path';
 
 export default (api: IApi) => {
-  const { paths, pkg, cwd } = api;
+  const { cwd } = api;
 
   api.describe({
     key: 'webpack',
@@ -16,11 +15,14 @@ export default (api: IApi) => {
   });
 
   api.chainWebpack(async (memo) => {
+    const client = require.resolve('@winfe/client/package.json');
     memo.module
       .rule('vue')
       .test(/\.vue$/i)
       .include.add([
         cwd,
+        // client none compile, need add include
+        dirname(client),
         // import module out of cwd using APP_ROOT
         // issue: https://github.com/umijs/umi/issues/5594
         ...(process.env.APP_ROOT ? [process.cwd()] : []),

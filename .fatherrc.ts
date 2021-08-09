@@ -2,7 +2,7 @@ import { readdirSync } from 'fs';
 import { join } from 'path';
 
 // utils must build before core
-const headPkgs = [];
+const headPkgs = ['runtime'];
 const tailPkgs = ['vmi'];
 const ignorePkgs = ['client'];
 const otherPkgs = readdirSync(join(__dirname, 'packages')).filter(

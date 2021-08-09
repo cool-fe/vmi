@@ -48,6 +48,7 @@ export default function () {
       require.resolve('./plugins/features/ignoreMomentLocale'),
       require.resolve('./plugins/features/inlineLimit'),
       require.resolve('./plugins/features/lessLoader'),
+      require.resolve('./plugins/features/sassLoader'),
       require.resolve('./plugins/features/manifest'),
       require.resolve('./plugins/features/mfsu/mfsu'),
       require.resolve('./plugins/features/mountElementId'),
