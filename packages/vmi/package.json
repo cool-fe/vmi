@@ -37,6 +37,8 @@
     "@winfe/preset-built-in": "^1.0.6",
     "@winfe/preset-built-vmi": "^1.0.6",
     "@winfe/runtime": "^1.0.6",
+    "minio": "^7.0.18",
+    "string-width": "^5.0.0",
     "v8-compile-cache": "2.3.0"
   },
   "bin": {

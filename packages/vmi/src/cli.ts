@@ -72,8 +72,11 @@ if (process.title === 'node') {
         break;
       default:
         const name = args._[0];
+        const plugins = [];
         if (name === 'build') {
           process.env.NODE_ENV = 'production';
+          if (args.component)
+            plugins.push(require.resolve('./plugins/component'));
         }
 
         // Init webpack version determination and require hook for build command
@@ -83,6 +86,7 @@ if (process.title === 'node') {
           cwd: getCwd(),
           pkg: getPkg(process.cwd()),
           configFiles: DEFAULT_CONFIG_FILES,
+          plugins,
         }).run({
           name,
           args,

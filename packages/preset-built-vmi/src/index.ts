@@ -1,6 +1,6 @@
 export { IDumiOpts } from './context';
 
-export default function () {
+export default function() {
   return {
     plugins: [
       require.resolve('./plugins/features/init'),
@@ -16,7 +16,6 @@ export default function () {
       require.resolve('./plugins/features/webpack'),
       require.resolve('./plugins/features/outputPath'),
       require.resolve('./plugins/features/alias'),
-      // require.resolve('./plugins/features/component'),
     ],
   };
 }

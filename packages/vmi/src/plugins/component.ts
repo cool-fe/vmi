@@ -1,5 +1,6 @@
 import { IApi } from '@umijs/types';
 import { resolve } from 'path';
+import uploadMaterialOutput from '../uploadMaterialOutput';
 
 const externals = {
   vue: {
@@ -9,10 +10,16 @@ const externals = {
     amd: 'vue',
   },
   'element-ui': {
-    root: 'element-ui',
+    root: 'elementUi',
     commonjs: 'element-ui',
     commonjs2: 'element-ui',
     amd: 'element-ui',
+  },
+  '@winfe/win-request': {
+    root: 'winRequest',
+    commonjs: 'win-request',
+    commonjs2: 'win-request',
+    amd: 'win-request',
   },
 };
 
@@ -29,15 +36,14 @@ export default (api: IApi) => {
     },
   });
 
-  api.chainWebpack(async (memo) => {
-    memo.entryPoints.delete('umi');
-    memo.entryPoints.delete('vmi');
+  api.chainWebpack(async memo => {
+    memo.entryPoints.clear();
     memo.entry('index').add(resolve(cwd, './index.js'));
 
     // component output need umd
     memo.output
       .publicPath('./')
-      .path(resolve(cwd, './lib/'))
+      .path(resolve(cwd, `dist/${require(`${cwd}/package.json`).version}`))
       .filename('index.js')
       .chunkFilename('[id].js')
       .libraryTarget('umd');
@@ -47,7 +53,7 @@ export default (api: IApi) => {
     // 添加全局scss文件
     const types = ['vue-modules', 'vue', 'normal-modules', 'normal'];
 
-    types.forEach((type) => {
+    types.forEach(type => {
       //匹配到所有需要导入的文件
       memo.module
         .rule('sass')
@@ -59,17 +65,22 @@ export default (api: IApi) => {
         });
     });
 
-    memo.module
-      .rule('css')
-      .use('extract-css-loader')
-      .tap((options) => {
-        // 修改它的选项...
-        options.filename = 'index.css';
-        return options;
-      });
+    memo
+      .plugin('extract-css')
+      .tap(options =>
+        options.map(option => ({ ...option, filename: 'index.css' })),
+      );
 
-    memo.plugin('CleanWebpackPlugin').use(require('clean-webpack-plugin').CleanWebpackPlugin);
+    memo
+      .plugin('CleanWebpackPlugin')
+      .use(require('clean-webpack-plugin').CleanWebpackPlugin);
 
     return memo;
+  });
+
+  api.onBuildComplete(({ err }) => {
+    if (!err) {
+      if (api.args.upload) uploadMaterialOutput(cwd);
+    }
   });
 };
