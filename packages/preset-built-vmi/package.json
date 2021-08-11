@@ -13,6 +13,13 @@
   "authors": [
     "dashixiong <dashixiong@tanzhou.cn>"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cool-fe/vmi"
+  },
+
+  "bugs": "https://github.com/cool-fe/vmi/issues",
+  "homepage": "https://github.com/cool-fe/vmi/tree/main/packages/preset-built-vmi#readme",
   "license": "MIT",
   "publishConfig": {
     "access": "public",

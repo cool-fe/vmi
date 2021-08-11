@@ -13,8 +13,10 @@
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/umijs/umi"
+    "url": "https://github.com/cool-fe/vmi"
   },
+  "bugs": "https://github.com/cool-fe/vmi/issues",
+  "homepage": "https://github.com/cool-fe/vmi/tree/main/packages/vmi#readme",
   "keywords": [
     "vmi"
   ],
@@ -22,8 +24,6 @@
     "dashixiong <18570148691@163.com> (https://github.com/GGwujun)"
   ],
   "license": "MIT",
-  "bugs": "http://github.com/umijs/umi/issues",
-  "homepage": "https://github.com/umijs/umi/tree/master/packages/umi#readme",
   "publishConfig": {
     "access": "public",
     "registry": "http://registry.npmjs.org/"
