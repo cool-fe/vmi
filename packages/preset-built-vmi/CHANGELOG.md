@@ -1,6 +1,18 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# 1.1.0-alpha.0 (2021-08-11)
+
+
+### Features
+
+* vmi对接dev和build命令，支持spa项目和组件物料打包第一阶段开发完毕 ([aa12139](https://github.com/cool-fe/vmi/commit/aa12139a28d7bdc1aa5eaecedeaa248e589a1fab))
+
+
+
+
 
 ## 1.0.6 (2021-08-06)
 

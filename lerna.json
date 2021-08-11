@@ -1,5 +1,5 @@
 {
-  "version": "1.0.6",
+  "version": "1.1.0-alpha.0",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "changelog": {
@@ -20,14 +20,22 @@
       "message": "chore(release): publish %s [skip ci]"
     },
     "publish": {
-      "ignoreChanges": ["*.md", ".npmrc"],
+      "ignoreChanges": [
+        "*.md",
+        ".npmrc"
+      ],
       "registry": "http://registry.npmjs.org/",
-      "version": ["preminor"]
+      "version": [
+        "preminor"
+      ]
     },
     "version": {
       "conventionalCommits": true,
       "includeMergedTags": true,
-      "ignoreChanges": ["*.md", ".npmrc"]
+      "ignoreChanges": [
+        "*.md",
+        ".npmrc"
+      ]
     }
   },
   "ignoreChanges": [
