@@ -24,7 +24,7 @@ export default (api: IApi) => {
       loader: require.resolve('sass-loader'),
       options: utils.deepmerge(
         {
-          implementation: require('node-sass'),
+          implementation: require('sass'),
         },
         api.config.sass || {},
       ),
