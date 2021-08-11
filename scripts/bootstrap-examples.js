@@ -9,8 +9,7 @@ const getPackages = require('./utils/getPackages');
 
   const pkgs = getPackages('../../examples');
 
-  pkgs.forEach(async (shortName) => {
-
+  pkgs.forEach(async shortName => {
     const pkgJSONPath = join(
       __dirname,
       '..',
@@ -25,8 +24,8 @@ const getPackages = require('./utils/getPackages');
         version: '0.0.1',
         description: shortName,
         scripts: {
-          start: "umi dev",
-          build: "umi build"
+          start: 'umi dev',
+          build: 'umi build',
         },
         repository: {
           type: 'git',
@@ -36,7 +35,7 @@ const getPackages = require('./utils/getPackages');
         authors: ['chencheng <sorrycc@gmail.com> (https://github.com/sorrycc)'],
         license: 'MIT',
         dependencies: {
-          umi: "latest"
+          umi: 'latest',
         },
         bugs: 'http://github.com/umijs/umi/issues',
         homepage: `https://github.com/umijs/umi/tree/master/examples/${shortName}#readme`,
@@ -54,7 +53,7 @@ const getPackages = require('./utils/getPackages');
           'sideEffects',
           'main',
           'module',
-        ].forEach((key) => {
+        ].forEach(key => {
           if (pkg[key]) json[key] = pkg[key];
         });
       }
@@ -69,7 +68,10 @@ const getPackages = require('./utils/getPackages');
       'README.md',
     );
     if (args.force || !existsSync(readmePath)) {
-      writeFileSync(readmePath, `# ${shortName}\n\nTODO\n\n## How to use\n\nExecute [\`@umijs/create-umi-app\`](https://github.com/umijs/umi/tree/master/packages/create-umi-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:\n\n\`\`\`bash\nnpx @umijs/create-umi-app --example ${shortName} ${shortName}-app\n# or\nyarn create @umijs/umi-app --example ${shortName} ${shortName}-app\n\`\`\`\n`);
+      writeFileSync(
+        readmePath,
+        `# ${shortName}\n\nTODO\n\n## How to use\n\nExecute [\`@umijs/create-umi-app\`](https://github.com/umijs/umi/tree/master/packages/create-umi-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:\n\n\`\`\`bash\nnpx @umijs/create-umi-app --example ${shortName} ${shortName}-app\n# or\nyarn create @umijs/umi-app --example ${shortName} ${shortName}-app\n\`\`\`\n`,
+      );
     } else {
       return;
     }
@@ -84,7 +86,9 @@ const getPackages = require('./utils/getPackages');
     );
     if (!existsSync(indexPath)) {
       await mkdirp(join(indexPath, '..'));
-      writeFileSync(indexPath, `import React from 'react';
+      writeFileSync(
+        indexPath,
+        `import React from 'react';
 import type { FC } from 'react';
 
 const IndexPage: FC = () => {
@@ -93,7 +97,8 @@ const IndexPage: FC = () => {
 
 export default IndexPage;
 
-`);
+`,
+      );
     }
   });
 })();

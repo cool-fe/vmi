@@ -1,6 +1,5 @@
 import { IApi } from '@umijs/types';
-import { resolve, winPath } from '@umijs/utils';
-import { dirname, resolve as $resolve } from 'path';
+import { resolve as $resolve } from 'path';
 
 export default (api: IApi) => {
   const { paths, pkg, cwd } = api;

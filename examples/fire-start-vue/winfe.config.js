@@ -2,7 +2,7 @@
 const fileListPugin = require('@winning-plugin/webpack-filelist-export');
 
 module.exports = {
-  chainWebpack: (config) => {
+  chainWebpack: config => {
     config
       .plugin('filePlugin')
       .after('html')
@@ -10,11 +10,13 @@ module.exports = {
         {
           extract: true,
           jsExternals: [],
-          cssExternals: [`/web-public/libs/win-components/skin/index.css?t=${Date.now()}`]
-        }
+          cssExternals: [
+            `/web-public/libs/win-components/skin/index.css?t=${Date.now()}`,
+          ],
+        },
       ]);
   },
-  sass: {}
+  sass: {},
   // chainWebpack: (config) => {
   // console.log(config.module.rule('svg'), 'ssss');
   // config.module

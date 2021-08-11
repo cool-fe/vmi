@@ -66,7 +66,7 @@ async function release() {
     const updatedStdout = execa.sync(lernaCli, ['changed']).stdout;
     updated = updatedStdout
       .split('\n')
-      .map((pkg) => {
+      .map(pkg => {
         if (pkg === 'vmi') return pkg;
         else return pkg.split('/')[1];
       })
@@ -104,7 +104,7 @@ async function release() {
     // Sync version to root package.json
     logStep('sync version to root package.json');
     const rootPkg = require('../package');
-    Object.keys(rootPkg.devDependencies).forEach((name) => {
+    Object.keys(rootPkg.devDependencies).forEach(name => {
       if (name.startsWith('@umijs/') && !name.startsWith('@umijs/p')) {
         rootPkg.devDependencies[name] = currVersion;
       }
@@ -136,7 +136,7 @@ async function release() {
   logStep(`publish packages: ${chalk.blue(pkgs.join(', '))}`);
   const currVersion = require('../lerna').version;
   const isNext = isNextVersion(currVersion);
-  const releasePkgs = pkgs.sort((a) => {
+  const releasePkgs = pkgs.sort(a => {
     return a === 'umi' ? 1 : -1;
   });
   for (const [index, pkg] of releasePkgs.entries()) {
@@ -155,7 +155,7 @@ async function release() {
           name: 'otp',
           type: 'input',
           message: 'This operation requires a one-time password:',
-          validate: (msg) => !!msg,
+          validate: msg => !!msg,
         });
         cliArgs = cliArgs.concat(['--otp', otp]);
       }
@@ -183,7 +183,7 @@ async function release() {
   logStep('done');
 }
 
-release().catch((err) => {
+release().catch(err => {
   console.error(err);
   process.exit(1);
 });

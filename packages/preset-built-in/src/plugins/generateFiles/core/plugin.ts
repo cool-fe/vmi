@@ -15,11 +15,11 @@ export default function (api: IApi) {
       key: 'addRuntimePluginKey',
       type: api.ApplyPluginsType.add,
       initialValue: [
-        'modifyClientRenderOpts',
         'patchRoutes',
-        'rootContainer',
         'render',
         'onRouteChange',
+        'default',
+        'enhanceApp',
       ],
     });
     const plugins = await api.applyPlugins({
@@ -63,6 +63,13 @@ export default function (api: IApi) {
     return {
       specifiers: ['plugin'],
       source: `./plugin`,
+    };
+  });
+
+  api.addUmiExports(() => {
+    return {
+      specifiers: ['ApplyPluginsType'],
+      source: `${runtimePath}`,
     };
   });
 }

@@ -11,19 +11,19 @@ const bootstrap = async () => {
     absolute: true,
     cwd: path.join(__dirname, '..'),
   });
-  const projects = benchmarks.map((benchmark) => path.dirname(benchmark));
+  const projects = benchmarks.map(benchmark => path.dirname(benchmark));
   await buildExamples(projects);
   const suite = new Benchmark.Suite();
-  benchmarks.forEach((benchmark) => {
+  benchmarks.forEach(benchmark => {
     const benchmarkFunc = require(benchmark);
     benchmarkFunc(suite);
   });
 
   suite
-    .on('cycle', function (event) {
+    .on('cycle', function(event) {
       console.log(String(event.target));
     })
-    .on('complete', function () {
+    .on('complete', function() {
       console.log('');
       for (let index = 0; index < this.length; index++) {
         const benchmark = this[index];

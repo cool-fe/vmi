@@ -9,7 +9,10 @@ const info = chalk.bold.green;
 
 info(`start...`);
 
-const { name: packageName } = require(path.resolve(process.cwd(), './package.json'));
+const { name: packageName } = require(path.resolve(
+  process.cwd(),
+  './package.json',
+));
 
 const { command } = require(path.resolve(process.cwd(), './lerna.json'));
 
@@ -23,11 +26,19 @@ const argvs = [
   process.env.PUB_CI_ACCESS_TOKEN,
   '--registry',
   'http://registry.npmjs.org/',
-  '--yes'
+  '--yes',
 ];
 
 //符合semver语义的版本
-const semantic = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease'];
+const semantic = [
+  'major',
+  'minor',
+  'patch',
+  'premajor',
+  'preminor',
+  'prepatch',
+  'prerelease',
+];
 
 // 自定义preid
 /**
@@ -45,7 +56,10 @@ const semantic = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch',
  */
 
 if (command.publish && command.publish.version) {
-  if (typeof command.publish.version === 'string' && semantic.includes(command.publish.version)) {
+  if (
+    typeof command.publish.version === 'string' &&
+    semantic.includes(command.publish.version)
+  ) {
     argvs.push(...['--bump', command.publish.version]);
   } else if (command.publish.version instanceof Array) {
     argvs.push(...command.publish.version);
@@ -53,17 +67,21 @@ if (command.publish && command.publish.version) {
 }
 
 try {
-  const ps = spawn(path.resolve(process.cwd(), 'node_modules/.bin/lerna'), argvs, {
-    stdio: 'inherit',
-    encoding: 'utf-8',
-    cwd: process.cwd(),
-    env: {
-      FORCE_COLOR: true,
-      npm_config_color: 'always',
-      npm_config_progress: true,
-      ...process.env
-    }
-  });
+  const ps = spawn(
+    path.resolve(process.cwd(), 'node_modules/.bin/lerna'),
+    argvs,
+    {
+      stdio: 'inherit',
+      encoding: 'utf-8',
+      cwd: process.cwd(),
+      env: {
+        FORCE_COLOR: true,
+        npm_config_color: 'always',
+        npm_config_progress: true,
+        ...process.env,
+      },
+    },
+  );
 
   ps.on('error', () => {
     throw new Error(`Failed to install ${packageName}\n${ps.stderr}`);

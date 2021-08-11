@@ -14,5 +14,4 @@ if (args._[1]) {
   process.env.APP_ROOT = args._[1];
 }
 
-
 require('../packages/vmi/lib/cli');

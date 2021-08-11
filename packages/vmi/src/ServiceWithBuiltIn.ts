@@ -3,7 +3,6 @@ import { dirname } from 'path';
 
 class Service extends CoreService {
   constructor(opts: IServiceOpts) {
-    // process.env.UMI_UI = 'none';
     process.env.IS_VMI = 'true';
     process.env.UMI_VERSION = require('../package').version;
     process.env.UMI_DIR = dirname(require.resolve('../package'));
@@ -15,10 +14,7 @@ class Service extends CoreService {
         require.resolve('@winfe/preset-built-vmi'),
         ...(opts.presets || []),
       ],
-      plugins: [
-        require.resolve('./plugins/umiAlias'),
-        ...(opts.plugins || []),
-      ],
+      plugins: [require.resolve('./plugins/umiAlias'), ...(opts.plugins || [])],
     });
   }
 }

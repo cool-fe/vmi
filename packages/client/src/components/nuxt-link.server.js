@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from 'vue';
 
 export default {
   name: 'NuxtLink',
@@ -6,11 +6,11 @@ export default {
   props: {
     prefetch: {
       type: Boolean,
-      default: true
+      default: true,
     },
     noPrefetch: {
       type: Boolean,
-      default: false
-    }
-  }
-}
+      default: false,
+    },
+  },
+};

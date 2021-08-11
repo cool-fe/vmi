@@ -14,7 +14,7 @@ export default (api: IApi) => {
     },
   });
 
-  api.chainWebpack(async memo => {
+  api.chainWebpack(async (memo) => {
     memo.resolve.extensions.merge(['.vue']);
 
     // vue-loader
@@ -30,10 +30,8 @@ export default (api: IApi) => {
         ...(process.env.APP_ROOT ? [process.cwd()] : []),
       ])
       .end()
-      .exclude.add(/node_modules/)
-      // don't compile mfsu temp files
-      // TODO: do not hard code
-      .end()
+      // .exclude.add(/node_modules/)
+      // .end()
       .use('vue-loader')
       .loader(require.resolve('vue-loader'))
       .options({

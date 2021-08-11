@@ -1,8 +1,5 @@
 import { IApi } from '@umijs/types';
-
 export default (api: IApi) => {
-  const { paths, pkg, cwd } = api;
-
   api.describe({
     key: 'entry',
     config: {
@@ -14,7 +11,7 @@ export default (api: IApi) => {
   });
 
   api.chainWebpack(async (memo) => {
-    memo.entryPoints.delete('umi');
+    memo.entryPoints.clear();
     memo.entry('vmi').add(require.resolve('@winfe/client/src/client'));
     return memo;
   });

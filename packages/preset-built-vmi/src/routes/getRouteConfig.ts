@@ -7,24 +7,13 @@ import slash from 'slash2';
 import type { IDumiOpts } from '../index';
 import getRouteConfigFromDir from './getRouteConfigFromDir';
 
-const debug = createDebug('dumi:routes:get');
-
-export const DUMI_ROOT_FLAG = '__dumiRoot';
+const debug = createDebug('vmi:routes:get');
 
 export default async (api: IApi, opts: IDumiOpts): Promise<IRoute[]> => {
   const { paths } = api;
   const config: IRoute[] = [];
   const childRoutes: IRoute[] = [];
-  const userRoutes =
-    opts.isIntegrate || api.args?.vmi !== undefined
-      ? (
-          await api.applyPlugins({
-            key: 'vmi.getRootRoute',
-            type: api.ApplyPluginsType.modify,
-            initialValue: api.userConfig.routes,
-          })
-        )?.routes
-      : api.userConfig.routes;
+  const userRoutes = api.userConfig.routes;
 
   if (userRoutes) {
     // only apply user's routes if there has routes config

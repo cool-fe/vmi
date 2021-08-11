@@ -6,7 +6,7 @@ const { glob, signale } = require('@umijs/utils');
 const UMI_SCRIPT = path.join(__dirname, '../packages/umi/bin/umi.js');
 
 function build({ cwd }) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     signale.pending(cwd);
     const child = fork(UMI_SCRIPT, ['build'], {
       env: {
@@ -17,7 +17,7 @@ function build({ cwd }) {
       cwd,
       stdio: 'ignore',
     });
-    child.on('exit', (code) => {
+    child.on('exit', code => {
       if (code === 0) {
         signale.complete(`success build ${cwd}`);
         resolve();
@@ -43,7 +43,7 @@ async function buildExamples(customProjectPaths) {
     Array.isArray(customProjectPaths) && customProjectPaths.length > 0
       ? customProjectPaths
       : examples;
-  await Promise.all(projects.map((project) => build({ cwd: project })));
+  await Promise.all(projects.map(project => build({ cwd: project })));
 }
 
 module.exports = buildExamples;
