@@ -15,7 +15,10 @@ export default (api: IApi) => {
   });
 
   api.chainWebpack(async (memo) => {
-    memo.resolve.extensions.merge(['.vue']);
+    memo.resolve.extensions
+      .merge(['.vue'])
+      .end()
+      .modules.merge([cwd + '/node_modules']);
 
     // vue-loader
     memo.module
@@ -30,8 +33,8 @@ export default (api: IApi) => {
         ...(process.env.APP_ROOT ? [process.cwd()] : []),
       ])
       .end()
-      // .exclude.add(/node_modules/)
-      // .end()
+      .exclude.add(/node_modules/)
+      .end()
       .use('vue-loader')
       .loader(require.resolve('vue-loader'))
       .options({
