@@ -33,8 +33,6 @@ export default (api: IApi) => {
         ...(process.env.APP_ROOT ? [process.cwd()] : []),
       ])
       .end()
-      .exclude.add(/node_modules/)
-      .end()
       .use('vue-loader')
       .loader(require.resolve('vue-loader'))
       .options({
