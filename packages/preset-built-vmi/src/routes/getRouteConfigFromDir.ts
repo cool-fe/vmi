@@ -16,7 +16,7 @@ function globPathWithExtensions(path: string) {
   return `${path}/**/*.{${supportedExtensions.join(',')}}`;
 }
 
-async function resolveFiles(
+export async function resolveFiles(
   dir: string,
   cwd: string = ctx.umi?.paths?.absSrcPath as string,
 ) {

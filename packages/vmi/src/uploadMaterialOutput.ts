@@ -1,6 +1,6 @@
-import path from 'path';
 import chalk from 'chalk';
 import fs from 'fs';
+import path from 'path';
 import title from './utils/printTitle';
 
 const Minio = require('minio');
@@ -22,13 +22,13 @@ export default async (cwd: string) => {
   };
 
   // 递归上传dist下对应当前版本的所有打包产物到minio
-  const domainName = pkg.name.split('/')[1].split('-')[0];
-  const filepath = `materials-umd-lib/${domainName}/${pkg.name}/${pkg.version}/`;
+  const domainName = pkg.componentConfig?.domain;
+  const filepath = `materials-umd-lib/${domainName}/components/${pkg.name}/${pkg.version}/`;
   const fileDir = `${cwd}/dist/${pkg.version}/`;
 
   const classifyFiles = (filepath: string, dir: string) => {
     fs.readdir(dir, (err, files) => {
-      files.forEach(filename => {
+      files.forEach((filename) => {
         let filedir = path.join(dir, filename);
         fs.stat(filedir, (err, stats) => {
           if (!err) {
@@ -45,13 +45,17 @@ export default async (cwd: string) => {
   };
   // 上传方法
   const upload = (filepath: string, files: string) => {
-    minioClient.fPutObject('winex', filepath, files, metaData, function(
-      err: any,
-    ) {
-      if (err) {
-        console.log(chalk.red('upload fail', err));
-      }
-    });
+    minioClient.fPutObject(
+      'winex',
+      filepath,
+      files,
+      metaData,
+      function (err: any) {
+        if (err) {
+          console.log(chalk.red('upload fail', err));
+        }
+      },
+    );
   };
 
   classifyFiles(filepath, fileDir);
