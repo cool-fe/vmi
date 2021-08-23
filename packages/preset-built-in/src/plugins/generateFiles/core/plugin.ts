@@ -22,16 +22,28 @@ export default function (api: IApi) {
         'enhanceApp',
       ],
     });
+
+    let srcIndex = getFile({
+      base: paths.absSrcPath!,
+      fileNameWithoutExt: 'app',
+      type: 'javascript',
+    })?.path;
+
+    if (!srcIndex) {
+      srcIndex = getFile({
+        base: paths.cwd!,
+        fileNameWithoutExt: 'app',
+        type: 'javascript',
+      })?.path;
+      if (srcIndex) {
+        api.logger.warn('项目根目录的 app.js 被移动到 src/app.js');
+      }
+    }
+
     const plugins = await api.applyPlugins({
       key: 'addRuntimePlugin',
       type: api.ApplyPluginsType.add,
-      initialValue: [
-        getFile({
-          base: paths.absSrcPath!,
-          fileNameWithoutExt: 'app',
-          type: 'javascript',
-        })?.path,
-      ].filter(Boolean),
+      initialValue: [srcIndex].filter(Boolean),
     });
     api.writeTmpFile({
       path: 'core/plugin.ts',
