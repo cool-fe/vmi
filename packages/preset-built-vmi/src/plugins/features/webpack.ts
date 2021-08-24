@@ -42,6 +42,13 @@ export default (api: IApi) => {
           object: 'src',
           embed: 'src',
         },
+        compilerOptions: {
+          preserveWhitespace: false,
+        },
+        cssModules: {
+          localIdentName: '[path][name]---[local]---[hash:base64:5]',
+          camelCase: true,
+        },
       });
 
     memo.plugin('VueLoaderPlugin').use(require('vue-loader').VueLoaderPlugin);
