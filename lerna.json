@@ -20,24 +20,14 @@
       "message": "chore(release): publish %s [skip ci]"
     },
     "publish": {
-      "ignoreChanges": [
-        "*.md",
-        ".npmrc"
-      ],
+      "ignoreChanges": ["*.md", ".npmrc"],
       "registry": "http://registry.npmjs.org/",
-      "version": [
-        "--conventional-prerelease",
-        "--preid",
-        "beta"
-      ]
+      "version": ["--conventional-graduate"]
     },
     "version": {
       "conventionalCommits": true,
       "includeMergedTags": true,
-      "ignoreChanges": [
-        "*.md",
-        ".npmrc"
-      ]
+      "ignoreChanges": ["*.md", ".npmrc"]
     }
   },
   "ignoreChanges": [
