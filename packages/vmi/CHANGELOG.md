@@ -1,26 +1,22 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# 1.2.0-beta.1 (2021-08-23)
+
+### Bug Fixes
+
+- 修改上传 minio 路径 ([6b4407c](https://github.com/cool-fe/vmi/commit/6b4407c264dee7fe0d2838184c1c4b3ff8da9356))
 
 # 1.2.0-beta.0 (2021-08-11)
 
-
 ### Features
 
-* 处理打包组件时的library ([f9a90c8](https://github.com/cool-fe/vmi/commit/f9a90c8651f24b9ac36afda24404b07d31273f8f))
-
-
-
-
+- 处理打包组件时的 library ([f9a90c8](https://github.com/cool-fe/vmi/commit/f9a90c8651f24b9ac36afda24404b07d31273f8f))
 
 # 1.2.0-alpha.0 (2021-08-11)
 
 **Note:** Version bump only for package @winfe/vmi
-
-
-
-
 
 # 1.1.0-alpha.0 (2021-08-11)
 
