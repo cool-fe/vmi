@@ -36,7 +36,10 @@ export default function (api: IApi) {
         type: 'javascript',
       })?.path;
       if (srcIndex) {
-        api.logger.warn('项目根目录的 app.js 被移动到 src/app.js');
+        api.logger.warn(
+          'deprecated',
+          'Instead of src/app.js, 项目根目录的 app.js 被移动到 src/app.js',
+        );
       }
     }
 

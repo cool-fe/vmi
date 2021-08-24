@@ -22,6 +22,12 @@ const externals = {
     commonjs2: 'win-request',
     amd: 'win-request',
   },
+  'his-request': {
+    root: 'HISREUEST',
+    commonjs: 'his-request',
+    commonjs2: 'his-request',
+    amd: 'his-request',
+  },
 };
 
 export default (api: IApi) => {
