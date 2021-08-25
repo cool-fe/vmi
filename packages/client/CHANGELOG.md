@@ -1,6 +1,18 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## 1.2.1 (2021-08-25)
+
+
+### Bug Fixes
+
+* merge main ([3006155](https://github.com/cool-fe/vmi/commit/3006155e801cc2f40593956ddbcc8e6a2e291752))
+
+
+
+
 
 # 1.2.0 (2021-08-24)
 

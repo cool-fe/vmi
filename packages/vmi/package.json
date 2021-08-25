@@ -1,6 +1,6 @@
 {
   "name": "@winfe/vmi",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "vmi",
   "main": "index.js",
   "types": "types.d.ts",
@@ -34,9 +34,9 @@
     "@umijs/deps": "3.5.2",
     "@umijs/types": "3.5.2",
     "@umijs/utils": "3.5.2",
-    "@winfe/preset-built-in": "^1.2.0",
-    "@winfe/preset-built-vmi": "^1.2.0",
-    "@winfe/runtime": "^1.2.0",
+    "@winfe/preset-built-in": "^1.2.1",
+    "@winfe/preset-built-vmi": "^1.2.1",
+    "@winfe/runtime": "^1.2.1",
     "minio": "^7.0.18",
     "string-width": "^5.0.0",
     "v8-compile-cache": "2.3.0"
