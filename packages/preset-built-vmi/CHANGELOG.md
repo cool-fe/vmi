@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.2 (2021-08-25)
+
+
+### Bug Fixes
+
+* 修改输出目录为lib ([37f651f](https://github.com/cool-fe/vmi/commit/37f651fee84694706ff71700fede00c3166a4d34))
+
+
+
+
+
 ## 1.2.1 (2021-08-25)
 
 
