@@ -57,7 +57,7 @@ export default (api: IApi) => {
     // component output need umd
     memo.output
       .publicPath('./')
-      .path(resolve(cwd, `dist/${api.pkg.version}`))
+      .path(resolve(cwd, `lib`))
       .filename('index.js')
       .chunkFilename('[id].js')
       .libraryTarget('umd')

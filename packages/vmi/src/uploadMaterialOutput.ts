@@ -21,10 +21,10 @@ export default async (cwd: string) => {
     example: 5678,
   };
 
-  // 递归上传dist下对应当前版本的所有打包产物到minio
+  // 递归上传lib下对应当前版本的所有打包产物到minio
   const domainName = pkg.componentConfig?.domain;
   const filepath = `materials-umd-lib/${domainName}/components/${pkg.name}/${pkg.version}/`;
-  const fileDir = `${cwd}/dist/${pkg.version}/`;
+  const fileDir = `${cwd}/lib/`;
 
   const classifyFiles = (filepath: string, dir: string) => {
     fs.readdir(dir, (err, files) => {
