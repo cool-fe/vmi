@@ -55,4 +55,23 @@ export default (api: IApi) => {
 
     return memo;
   });
+
+  api.modifyBabelPresetOpts(function (opts, argvs) {
+    return {
+      ...opts,
+      react: undefined,
+      reactRequire: undefined,
+      reactRemovePropTypes: undefined,
+    };
+  });
+
+  api.modifyBabelOpts(function (opts) {
+    opts.presets.push([
+      require.resolve('@vue/babel-preset-jsx'),
+      {
+        // compositionAPI: true,
+      },
+    ]);
+    return opts;
+  });
 };
