@@ -43,6 +43,11 @@ export default (api: IApi) => {
     },
   });
 
+  api.modifyConfig((initialValue) => {
+    initialValue.outputPath = 'lib';
+    return initialValue;
+  });
+
   api.chainWebpack(async (memo) => {
     memo.entryPoints.clear();
     memo.entry('index').add(resolve(cwd, './index.js'));
@@ -56,10 +61,6 @@ export default (api: IApi) => {
     }
     // component output need umd
     memo.output
-      .publicPath('./')
-      .path(resolve(cwd, `lib`))
-      .filename('index.js')
-      .chunkFilename('[id].js')
       .libraryTarget('umd')
       .libraryExport('default')
       .library(packageName);
@@ -80,12 +81,6 @@ export default (api: IApi) => {
           patterns: [require.resolve('@winfe/theme-helper')],
         });
     });
-
-    memo
-      .plugin('extract-css')
-      .tap((options) =>
-        options.map((option) => ({ ...option, filename: 'index.css' })),
-      );
 
     memo
       .plugin('CleanWebpackPlugin')
