@@ -243,7 +243,7 @@ export function printFileSizes(stats: webpack.Stats, dir: string) {
     );
     console.log(
       chalk.yellow(
-        'Consider reducing it with code splitting: https://umijs.org/docs/load-on-demand',
+        'Consider reducing it with code splitting: https://cool-fe.github.io/vmi-docs/docs/load-on-demand',
       ),
     );
     console.log(
