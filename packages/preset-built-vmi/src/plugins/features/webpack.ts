@@ -20,6 +20,12 @@ export default (api: IApi) => {
       .end()
       .modules.merge([cwd + '/node_modules']);
 
+    // set svg linmit:10000
+    memo.module
+      .rule('svg')
+      .use('file-loader')
+      .tap((options) => ({ ...options, limit: 10000 }));
+
     // vue-loader
     memo.module
       .rule('vue')
