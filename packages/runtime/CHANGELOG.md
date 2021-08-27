@@ -1,29 +1,24 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## 1.2.3 (2021-08-27)
+
+### Bug Fixes
+
+- 利用 process.env.APP_TYPE 标记项目类型 ([6170b78](https://github.com/cool-fe/vmi/commit/6170b78614c618cf999e3eb7ea7509c092c345ff))
 
 ## 1.2.2 (2021-08-25)
 
-
 ### Bug Fixes
 
-* 修改输出目录为lib ([37f651f](https://github.com/cool-fe/vmi/commit/37f651fee84694706ff71700fede00c3166a4d34))
-
-
-
-
+- 修改输出目录为 lib ([37f651f](https://github.com/cool-fe/vmi/commit/37f651fee84694706ff71700fede00c3166a4d34))
 
 ## 1.2.1 (2021-08-25)
 
-
 ### Bug Fixes
 
-* merge main ([3006155](https://github.com/cool-fe/vmi/commit/3006155e801cc2f40593956ddbcc8e6a2e291752))
-
-
-
-
+- merge main ([3006155](https://github.com/cool-fe/vmi/commit/3006155e801cc2f40593956ddbcc8e6a2e291752))
 
 # 1.2.0 (2021-08-24)
 
