@@ -11,7 +11,7 @@ import generateFiles from '../generateFiles';
 
 const logger = new Logger('vmi:preset-build-in');
 
-export default function(api: IApi) {
+export default function (api: IApi) {
   const {
     paths,
     utils: { rimraf },
@@ -20,23 +20,20 @@ export default function(api: IApi) {
   api.registerCommand({
     name: 'build',
     description: 'build application for production',
-    fn: async function() {
+    fn: async function () {
       cleanTmpPathExceptCache({
         absTmpPath: paths.absTmpPath!,
       });
 
       // build component not generate files
-      if (!api.args.component) {
+      if (process.env.APP_TYPE !== 'material') {
         // generate files
         await generateFiles({ api, watch: false });
       }
 
       // build
-      const {
-        bundler,
-        bundleConfigs,
-        bundleImplementor,
-      } = await getBundleAndConfigs({ api });
+      const { bundler, bundleConfigs, bundleImplementor } =
+        await getBundleAndConfigs({ api });
       try {
         // clear output path before exec build
         if (process.env.CLEAR_OUTPUT !== 'none') {

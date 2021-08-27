@@ -75,8 +75,9 @@ if (process.title === 'node') {
         const plugins = [];
         if (name === 'build') {
           process.env.NODE_ENV = 'production';
-          if (args.component)
+          if (process.env.APP_TYPE === 'material') {
             plugins.push(require.resolve('./plugins/component'));
+          }
         }
 
         // Init webpack version determination and require hook for build command
