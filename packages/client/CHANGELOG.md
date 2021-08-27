@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.3 (2021-08-27)
+
+
+### Bug Fixes
+
+* 利用process.env.APP_TYPE标记项目类型 ([6170b78](https://github.com/cool-fe/vmi/commit/6170b78614c618cf999e3eb7ea7509c092c345ff))
+
+
+
+
+
 ## 1.2.2 (2021-08-25)
 
 
