@@ -11,7 +11,7 @@ export function fixRoutePathInWindows(path?: string) {
   return path.replace(/:/g, '.');
 }
 
-export default function(api: IApi) {
+export default function (api: IApi) {
   class HtmlWebpackPlugin {
     apply(compiler: webpack.Compiler) {
       compiler.hooks.emit.tapPromise(
@@ -58,7 +58,7 @@ export default function(api: IApi) {
       const enableWriteToDisk =
         api.config.devServer && api.config.devServer.writeToDisk;
       if (
-        !api.args.component &&
+        process.env.APP_TYPE !== 'material' &&
         !mfsu &&
         (env === 'production' || enableWriteToDisk) &&
         id === 'webpack' &&
