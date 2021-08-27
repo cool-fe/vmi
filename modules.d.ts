@@ -7,6 +7,7 @@ declare namespace NodeJS {
     HOST: string;
     PORT: string;
     APP_ROOT: string;
+    APP_TYPE: 'material' | 'normal';
     CLEAR_OUTPUT: null | 'none';
     RM_TMPDIR: null | 'none';
     ERROR_CODE_MAP_PATH: string;
