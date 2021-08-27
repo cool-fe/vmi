@@ -1,15 +1,10 @@
-import Vue from 'vue';
 import { plugin } from '@@/core/plugin';
 import { ApplyPluginsType } from '@@/core/umiExports';
-import Meta from 'vue-meta';
-import ClientOnly from 'vue-client-only';
-import NoSsr from 'vue-no-ssr';
-import { createRouter } from './router.js';
-import NuxtChild from './components/nuxt-child.js';
-import NuxtError from './components/nuxt-error.vue';
-import Nuxt from './components/nuxt.js';
+import Vue from 'vue';
 import App from './App.js';
-import { setContext, getLocation, getRouteData, normalizeError } from './utils';
+import NuxtError from './components/nuxt-error.vue';
+import { createRouter } from './router.js';
+import { getLocation, getRouteData, normalizeError, setContext } from './utils';
 
 plugin.applyPlugins({
   key: 'enhanceApp',
@@ -23,37 +18,6 @@ plugin.applyPlugins({
   args: { Vue },
 });
 
-/* Plugins */
-
-// import nuxt_plugin_plugin_360b9564 from 'nuxt_plugin_plugin_360b9564' // Source: ./components/plugin.js (mode: 'all')
-
-const nuxt_plugin_plugin_360b9564 = function() {};
-
-// Component: <ClientOnly>
-Vue.component(ClientOnly.name, ClientOnly);
-
-// TODO: Remove in Nuxt 3: <NoSsr>
-Vue.component(NoSsr.name, {
-  ...NoSsr,
-  render(h, ctx) {
-    if (process.client && !NoSsr._warned) {
-      NoSsr._warned = true;
-
-      console.warn(
-        '<no-ssr> has been deprecated and will be removed in Nuxt 3, please use <client-only> instead',
-      );
-    }
-    return NoSsr.render(h, ctx);
-  },
-});
-
-// Component: <NuxtChild>
-Vue.component(NuxtChild.name, NuxtChild);
-Vue.component('NChild', NuxtChild);
-
-// Component: <Nuxt>
-Vue.component(Nuxt.name, Nuxt);
-
 Object.defineProperty(Vue.prototype, '$nuxt', {
   get() {
     const globalNuxt = this.$root.$options.$nuxt;
@@ -65,22 +29,6 @@ Object.defineProperty(Vue.prototype, '$nuxt', {
   configurable: true,
 });
 
-Vue.use(Meta, {
-  keyName: 'head',
-  attribute: 'data-n-head',
-  ssrAttribute: 'data-n-head-ssr',
-  tagIDKeyName: 'hid',
-});
-
-const defaultTransition = {
-  name: 'page',
-  mode: 'out-in',
-  appear: true,
-  appearClass: 'appear',
-  appearActiveClass: 'appear-active',
-  appearToClass: 'appear-to',
-};
-
 async function createApp(ssrContext, config = {}) {
   const router = await createRouter(ssrContext, config);
 
@@ -90,8 +38,8 @@ async function createApp(ssrContext, config = {}) {
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
     head: {
-      title: 'nuxt-test',
-      htmlAttrs: { lang: 'en' },
+      title: 'vmi',
+      htmlAttrs: { lang: 'zh-cn' },
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -106,28 +54,6 @@ async function createApp(ssrContext, config = {}) {
 
     router,
     nuxt: {
-      defaultTransition,
-      transitions: [defaultTransition],
-      setTransitions(transitions) {
-        if (!Array.isArray(transitions)) {
-          transitions = [transitions];
-        }
-        transitions = transitions.map(transition => {
-          if (!transition) {
-            transition = defaultTransition;
-          } else if (typeof transition === 'string') {
-            transition = Object.assign({}, defaultTransition, {
-              name: transition,
-            });
-          } else {
-            transition = Object.assign({}, defaultTransition, transition);
-          }
-          return transition;
-        });
-        this.$options.nuxt.transitions = transitions;
-        return transitions;
-      },
-
       err: null,
       dateErr: null,
       error(err) {
@@ -150,86 +76,18 @@ async function createApp(ssrContext, config = {}) {
     ...App,
   };
 
-  const next = ssrContext
-    ? ssrContext.next
-    : location => app.router.push(location);
+  const next = (location) => app.router.push(location);
+  
   // Resolve route
-  let route;
-  if (ssrContext) {
-    route = router.resolve(ssrContext.url).route;
-  } else {
-    const path = getLocation(router.options.base, router.options.mode);
-    route = router.resolve(path).route;
-  }
+  const path = getLocation(router.options.base, router.options.mode);
+  const route = router.resolve(path).route;
 
   // Set context to app.context
   await setContext(app, {
     route,
     next,
     error: app.nuxt.error.bind(app),
-    payload: ssrContext ? ssrContext.payload : undefined,
-    req: ssrContext ? ssrContext.req : undefined,
-    res: ssrContext ? ssrContext.res : undefined,
-    beforeRenderFns: ssrContext ? ssrContext.beforeRenderFns : undefined,
-    ssrContext,
   });
-
-  function inject(key, value) {
-    if (!key) {
-      throw new Error('inject(key, value) has no key provided');
-    }
-    if (value === undefined) {
-      throw new Error(`inject('${key}', value) has no value provided`);
-    }
-
-    key = '$' + key;
-    // Add into app
-    app[key] = value;
-    // Add into context
-    if (!app.context[key]) {
-      app.context[key] = value;
-    }
-
-    // Check if plugin not already installed
-    const installKey = '__nuxt_' + key + '_installed__';
-    if (Vue[installKey]) {
-      return;
-    }
-    Vue[installKey] = true;
-    // Call Vue.use() to install the plugin into vm
-    Vue.use(() => {
-      if (!Object.prototype.hasOwnProperty.call(Vue.prototype, key)) {
-        Object.defineProperty(Vue.prototype, key, {
-          get() {
-            return this.$root.$options[key];
-          },
-        });
-      }
-    });
-  }
-
-  // Inject runtime config as $config
-  inject('config', config);
-
-  // Add enablePreview(previewData = {}) in context for plugins
-  if (process.static && process.client) {
-    app.context.enablePreview = function(previewData = {}) {
-      app.previewData = Object.assign({}, previewData);
-      inject('preview', previewData);
-    };
-  }
-  // Plugin execution
-
-  if (typeof nuxt_plugin_plugin_360b9564 === 'function') {
-    await nuxt_plugin_plugin_360b9564(app.context, inject);
-  }
-
-  // Lock enablePreview in context
-  if (process.static && process.client) {
-    app.context.enablePreview = function() {
-      console.warn('You cannot call enablePreview() outside a plugin.');
-    };
-  }
 
   // Wait for async component to be resolved first
   await new Promise((resolve, reject) => {
@@ -238,7 +96,7 @@ async function createApp(ssrContext, config = {}) {
     if (!route.matched.length && process.client) {
       return resolve();
     }
-    router.replace(route, resolve, err => {
+    router.replace(route, resolve, (err) => {
       // https://github.com/vuejs/vue-router/blob/v3.4.3/src/util/errors.js
       if (!err._isRouter) return reject(err);
       if (err.type !== 2 /* NavigationFailureType.redirected */)
@@ -246,9 +104,6 @@ async function createApp(ssrContext, config = {}) {
 
       // navigated to a different route in router guard
       const unregister = router.afterEach(async (to, from) => {
-        if (process.server && ssrContext && ssrContext.url) {
-          ssrContext.url = to.fullPath;
-        }
         app.context.route = await getRouteData(to);
         app.context.params = to.params || {};
         app.context.query = to.query || {};

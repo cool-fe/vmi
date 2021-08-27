@@ -1,46 +1,28 @@
-import '@@/internal/app-enhancers/addEntryImportsAhead';
-import '@@/core/polyfill';
-// import '@@/core/devScripts';
-import { plugin } from '@@/core/plugin';
 import '@@/core/pluginRegister';
-import { ApplyPluginsType } from '@winfe/runtime';
+import '@@/core/polyfill';
+import '@@/internal/app-enhancers/addEntryCode';
+import '@@/internal/app-enhancers/addEntryImportsAhead';
 import Vue from 'vue';
-import fetch from 'unfetch';
-import middleware from './middleware.js';
+import NuxtLink from './components/nuxt-link.client.js'; // should be included after ./index.js
+import { createApp, NuxtError } from './index.js';
 import {
   applyAsyncData,
-  promisify,
-  middlewareSeries,
-  sanitizeComponent,
-  resolveRouteComponents,
+  compile,
+  flatMapComponents,
   getMatchedComponents,
   getMatchedComponentsInstances,
-  flatMapComponents,
-  setContext,
-  getLocation,
-  compile,
   getQueryDiff,
   globalHandleError,
   isSamePath,
+  promisify,
+  resolveRouteComponents,
+  sanitizeComponent,
+  setContext,
   urlJoin,
 } from './utils.js';
-import { createApp, NuxtError } from './index.js';
-import fetchMixin from './mixins/fetch.client';
-import NuxtLink from './components/nuxt-link.client.js'; // should be included after ./index.js
 
-// Fetch mixin
-if (!Vue.__nuxt__fetch__mixin__) {
-  Vue.mixin(fetchMixin);
-  Vue.__nuxt__fetch__mixin__ = true;
-}
-
-// Component: <NuxtLink>
 Vue.component(NuxtLink.name, NuxtLink);
 Vue.component('NLink', NuxtLink);
-
-if (!global.fetch) {
-  global.fetch = fetch;
-}
 
 // Global shared references
 let _lastPaths = [];
@@ -65,7 +47,9 @@ if (logs.length > 0) {
   const ssrLogStyle =
     'background: #2E495E;border-radius: 0.5em;color: white;font-weight: bold;padding: 2px 0.5em;';
   console.group && console.group('%cNuxt SSR', ssrLogStyle);
-  logs.forEach(logObj => (console[logObj.type] || console.log)(...logObj.args));
+  logs.forEach((logObj) =>
+    (console[logObj.type] || console.log)(...logObj.args),
+  );
   delete NUXT.logs;
   console.groupEnd && console.groupEnd();
 }
@@ -85,7 +69,7 @@ if (!Vue.config.$nuxt) {
 
     if (vm && vm.$root) {
       const nuxtApp = Object.keys(Vue.config.$nuxt).find(
-        nuxtInstance => vm.$root[nuxtInstance],
+        (nuxtInstance) => vm.$root[nuxtInstance],
       );
 
       // Show Nuxt Error Page
@@ -124,9 +108,7 @@ Vue.config.$nuxt.$nuxt = true;
 const errorHandler = Vue.config.errorHandler || console.error;
 
 // Create and mount App
-createApp(null, NUXT.config)
-  .then(mountApp)
-  .catch(errorHandler);
+createApp(null, NUXT.config).then(mountApp).catch(errorHandler);
 
 function componentOption(component, key, ...args) {
   if (!component || !component.options || !component.options[key]) {
@@ -137,43 +119,6 @@ function componentOption(component, key, ...args) {
     return option(...args);
   }
   return option;
-}
-
-function mapTransitions(toComponents, to, from) {
-  const componentTransitions = component => {
-    const transition = componentOption(component, 'transition', to, from) || {};
-    return typeof transition === 'string' ? { name: transition } : transition;
-  };
-
-  const fromComponents = from ? getMatchedComponents(from) : [];
-  const maxDepth = Math.max(toComponents.length, fromComponents.length);
-
-  const mergedTransitions = [];
-  for (let i = 0; i < maxDepth; i++) {
-    // Clone original objects to prevent overrides
-    const toTransitions = Object.assign(
-      {},
-      componentTransitions(toComponents[i]),
-    );
-    const transitions = Object.assign(
-      {},
-      componentTransitions(fromComponents[i]),
-    );
-
-    // Combine transitions & prefer `leave` properties of "from" route
-    Object.keys(toTransitions)
-      .filter(
-        key =>
-          typeof toTransitions[key] !== 'undefined' &&
-          !key.toLowerCase().includes('leave'),
-      )
-      .forEach(key => {
-        transitions[key] = toTransitions[key];
-      });
-
-    mergedTransitions.push(transitions);
-  }
-  return mergedTransitions;
 }
 
 async function loadAsyncComponents(to, from, next) {
@@ -206,7 +151,7 @@ async function loadAsyncComponents(to, from, next) {
           return true;
         }
         if (Array.isArray(watchQuery)) {
-          return watchQuery.some(key => this._diffQuery[key]);
+          return watchQuery.some((key) => this._diffQuery[key]);
         }
         if (typeof watchQuery === 'function') {
           return watchQuery.apply(instance, [to.query, from.query]);
@@ -268,41 +213,6 @@ function resolveComponents(route) {
   });
 }
 
-function callMiddleware(Components, context, layout) {
-  let midd = [];
-  let unknownMiddleware = false;
-
-  // If layout is undefined, only call global middleware
-  if (typeof layout !== 'undefined') {
-    midd = []; // Exclude global middleware if layout defined (already called before)
-    layout = sanitizeComponent(layout);
-    if (layout.options.middleware) {
-      midd = midd.concat(layout.options.middleware);
-    }
-    Components.forEach(Component => {
-      if (Component.options.middleware) {
-        midd = midd.concat(Component.options.middleware);
-      }
-    });
-  }
-
-  midd = midd.map(name => {
-    if (typeof name === 'function') {
-      return name;
-    }
-    if (typeof middleware[name] !== 'function') {
-      unknownMiddleware = true;
-      this.error({ statusCode: 500, message: 'Unknown middleware ' + name });
-    }
-    return middleware[name];
-  });
-
-  if (unknownMiddleware) {
-    return;
-  }
-  return middlewareSeries(midd, context);
-}
-
 async function render(to, from, next) {
   if (
     this._routeChanged === false &&
@@ -325,7 +235,7 @@ async function render(to, from, next) {
 
   // nextCalled is true when redirected
   let nextCalled = false;
-  const _next = path => {
+  const _next = (path) => {
     if (from.path === path.path && this.$loading.finish) {
       this.$loading.finish();
     }
@@ -357,12 +267,6 @@ async function render(to, from, next) {
 
   // If no Components matched, generate 404
   if (!Components.length) {
-    // Default layout
-    await callMiddleware.call(this, Components, app.context);
-    if (nextCalled) {
-      return;
-    }
-
     // Load layout for error page
     const errorLayout = (NuxtError.options || NuxtError).layout;
     const layout = await this.loadLayout(
@@ -371,7 +275,6 @@ async function render(to, from, next) {
         : errorLayout,
     );
 
-    await callMiddleware.call(this, Components, app.context, layout);
     if (nextCalled) {
       return;
     }
@@ -385,19 +288,14 @@ async function render(to, from, next) {
   }
 
   // Update ._data and other properties if hot reloaded
-  Components.forEach(Component => {
+  Components.forEach((Component) => {
     if (Component._Ctor && Component._Ctor.options) {
       Component.options.asyncData = Component._Ctor.options.asyncData;
       Component.options.fetch = Component._Ctor.options.fetch;
     }
   });
 
-  // Apply transitions
-  this.setTransitions(mapTransitions(Components, to, from));
-
   try {
-    // Call middleware
-    await callMiddleware.call(this, Components, app.context);
     if (nextCalled) {
       return;
     }
@@ -412,8 +310,6 @@ async function render(to, from, next) {
     }
     layout = await this.loadLayout(layout);
 
-    // Call middleware for layout
-    await callMiddleware.call(this, Components, app.context, layout);
     if (nextCalled) {
       return;
     }
@@ -473,7 +369,7 @@ async function render(to, from, next) {
             Component._dataRefresh = true;
           } else if (Array.isArray(watchQuery)) {
             Component._dataRefresh = watchQuery.some(
-              key => this._diffQuery[key],
+              (key) => this._diffQuery[key],
             );
           } else if (typeof watchQuery === 'function') {
             if (!instances) {
@@ -504,7 +400,7 @@ async function render(to, from, next) {
         if (hasAsyncData) {
           const promise = promisify(Component.options.asyncData, app.context);
 
-          promise.then(asyncDataResult => {
+          promise.then((asyncDataResult) => {
             applyAsyncData(Component, asyncDataResult);
 
             if (this.$loading.increase) {
@@ -523,7 +419,7 @@ async function render(to, from, next) {
           if (!p || (!(p instanceof Promise) && typeof p.then !== 'function')) {
             p = Promise.resolve(p);
           }
-          p.then(fetchResult => {
+          p.then((fetchResult) => {
             if (this.$loading.increase) {
               this.$loading.increase(loadingIncrease);
             }
@@ -655,7 +551,7 @@ function fixPrepatch(to, ___) {
 
 function nuxtReady(_app) {
   window.onNuxtReadyCbs &&
-    window.onNuxtReadyCbs.forEach(cb => {
+    window.onNuxtReadyCbs.forEach((cb) => {
       if (typeof cb === 'function') {
         cb(_app);
       }
@@ -678,11 +574,11 @@ const noopFetch = () => {};
 
 // Special hot reload with asyncData(context)
 function getNuxtChildComponents($parent, $components = []) {
-  $parent.$children.forEach($child => {
+  $parent.$children.forEach(($child) => {
     if (
       $child.$vnode &&
       $child.$vnode.data.nuxtChild &&
-      !$components.find(c => c.$options.__file === $child.$options.__file)
+      !$components.find((c) => c.$options.__file === $child.$options.__file)
     ) {
       $components.push($child);
     }
@@ -721,7 +617,7 @@ function addHotReload($component, depth) {
     }
     this.error();
     let promises = [];
-    const next = function(path) {
+    const next = function (path) {
       this.$loading.finish && this.$loading.finish();
       router.push(path);
     };
@@ -736,40 +632,33 @@ function addHotReload($component, depth) {
       this.$loading.start();
     }
 
-    callMiddleware
-      .call(this, Components, context)
-      .then(() => {
-        // If layout changed
-        if (depth !== 0) {
-          return;
-        }
+    Promise.resolve(() => {
+      // If layout changed
+      if (depth !== 0) {
+        return;
+      }
 
-        let layout = Component.options.layout || 'default';
-        if (typeof layout === 'function') {
-          layout = layout(context);
-        }
-        if (this.layoutName === layout) {
-          return;
-        }
-        let promise = this.loadLayout(layout);
-        promise.then(() => {
-          this.setLayout(layout);
-          Vue.nextTick(() => hotReloadAPI(this));
-        });
-        return promise;
-      })
-
-      .then(() => {
-        return callMiddleware.call(this, Components, context, this.layout);
-      })
-
+      let layout = Component.options.layout || 'default';
+      if (typeof layout === 'function') {
+        layout = layout(context);
+      }
+      if (this.layoutName === layout) {
+        return;
+      }
+      let promise = this.loadLayout(layout);
+      promise.then(() => {
+        this.setLayout(layout);
+        Vue.nextTick(() => hotReloadAPI(this));
+      });
+      return promise;
+    }
       .then(() => {
         // Call asyncData(context)
         let pAsyncData = promisify(
           Component.options.asyncData || noopData,
           context,
         );
-        pAsyncData.then(asyncDataResult => {
+        pAsyncData.then((asyncDataResult) => {
           applyAsyncData(Component, asyncDataResult);
           this.$loading.increase && this.$loading.increase(30);
         });
@@ -830,11 +719,8 @@ async function mountApp(__app) {
   // Resolve route components
   const Components = await Promise.all(resolveComponents(app.context.route));
 
-  // Enable transitions
-  _app.setTransitions = _app.$options.nuxt.setTransitions.bind(_app);
   if (Components.length) {
-    _app.setTransitions(mapTransitions(Components, router.currentRoute));
-    _lastPaths = router.currentRoute.matched.map(route =>
+    _lastPaths = router.currentRoute.matched.map((route) =>
       compile(route.path)(router.currentRoute.params),
     );
   }
@@ -870,8 +756,8 @@ async function mountApp(__app) {
   };
 
   // fix: force next tick to avoid having same timestamp when an error happen on spa fallback
-  await new Promise(resolve => setTimeout(resolve, 0));
-  render.call(_app, router.currentRoute, router.currentRoute, path => {
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  render.call(_app, router.currentRoute, router.currentRoute, (path) => {
     // If not redirected
     if (!path) {
       clientFirstMount();
@@ -886,7 +772,7 @@ async function mountApp(__app) {
     });
 
     // Push the path and let route to be resolved
-    router.push(path, undefined, err => {
+    router.push(path, undefined, (err) => {
       if (err) {
         errorHandler(err);
       }
@@ -894,4 +780,20 @@ async function mountApp(__app) {
   });
 }
 
-import '@@/internal/app-enhancers/addEntryCode';
+
+
+export default ({
+  Vue, // VuePress 正在使用的 Vue 构造函数
+  isServer // 当前应用配置是处于 服务端渲染 或 客户端
+}) => {
+  if (!isServer) {
+    return Promise.all(components.map((com) => com())).then((comValue) => {
+      comValue.forEach((component) => {
+        if (component.notVueObj) {
+          return;
+        }
+        Vue.component(component.name, component);
+      });
+    });
+  }
+};

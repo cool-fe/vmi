@@ -1,23 +1,14 @@
-import Vue from 'vue';
-import {
-  decode,
-  parsePath,
-  withoutBase,
-  withoutTrailingSlash,
-  normalizeURL,
-} from 'ufo';
 import layouts from '@internal/layoutComponents';
-import {
-  getMatchedComponentsInstances,
-  getChildrenComponentInstancesUsingFetch,
-  promisify,
-  globalHandleError,
-  urlJoin,
-  sanitizeComponent,
-} from './utils';
+import Vue from 'vue';
+import NuxtBuildIndicator from './components/nuxt-build-indicator.vue';
 import NuxtError from './components/nuxt-error.vue';
 import NuxtLoading from './components/nuxt-loading.vue';
-import NuxtBuildIndicator from './components/nuxt-build-indicator.vue';
+import {
+  getChildrenComponentInstancesUsingFetch,
+  getMatchedComponentsInstances,
+  globalHandleError,
+  promisify,
+} from './utils';
 
 export default {
   render(h, props) {
@@ -35,25 +26,6 @@ export default {
       [layoutEl],
     );
 
-    const transitionEl = h(
-      'transition',
-      {
-        props: {
-          name: 'layout',
-          mode: 'out-in',
-        },
-        on: {
-          beforeEnter(el) {
-            // Ensure to trigger scroll event after calling scrollBehavior
-            window.$nuxt.$nextTick(() => {
-              window.$nuxt.$emit('triggerScroll');
-            });
-          },
-        },
-      },
-      [templateEl],
-    );
-
     return h(
       'div',
       {
@@ -61,7 +33,7 @@ export default {
           id: '__nuxt',
         },
       },
-      [loadingEl, h(NuxtBuildIndicator), transitionEl],
+      [loadingEl, h(NuxtBuildIndicator)],
     );
   },
 
@@ -136,7 +108,7 @@ export default {
       }
       this.$loading.start();
 
-      const promises = pages.map(page => {
+      const promises = pages.map((page) => {
         const p = [];
 
         // Old fetch
@@ -156,7 +128,7 @@ export default {
 
         if (page.$options.asyncData) {
           p.push(
-            promisify(page.$options.asyncData, this.context).then(newData => {
+            promisify(page.$options.asyncData, this.context).then((newData) => {
               for (const key in newData) {
                 Vue.set(page.$data, key, newData[key]);
               }
