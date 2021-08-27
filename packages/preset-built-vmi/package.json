@@ -1,6 +1,6 @@
 {
   "name": "@winfe/preset-built-vmi",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "@vmi/preset-built-in",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
