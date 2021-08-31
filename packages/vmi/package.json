@@ -37,7 +37,7 @@
     "@winfe/preset-built-in": "^1.2.5",
     "@winfe/preset-built-vmi": "^1.2.5",
     "@winfe/runtime": "^1.2.5",
-    "@winfe/theme-helper": "^0.0.4",
+    "@winfe/theme-helper": "^0.0.5",
     "minio": "^7.0.18",
     "string-width": "^5.0.0",
     "style-resources-loader": "^1.4.1",
