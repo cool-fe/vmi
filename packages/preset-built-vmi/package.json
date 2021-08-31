@@ -33,7 +33,6 @@
     "@vue/babel-helper-vue-jsx-merge-props": "^1.2.1",
     "@vue/babel-preset-jsx": "^1.2.4",
     "@winfe/client": "^1.2.5",
-    "@winfe/theme-helper": "^0.0.4",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "cliui": "6.0.0",
     "es5-imcompatible-versions": "^0.1.62",
