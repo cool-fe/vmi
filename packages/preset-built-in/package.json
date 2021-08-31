@@ -1,6 +1,6 @@
 {
   "name": "@winfe/preset-built-in",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "@winfe/preset-built-in",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -32,8 +32,8 @@
     "@umijs/server": "3.5.2",
     "@umijs/types": "3.5.2",
     "@umijs/utils": "3.5.2",
-    "@winfe/runtime": "^1.2.5",
-    "@winfe/vmi": "^1.2.5",
+    "@winfe/runtime": "^1.2.6",
+    "@winfe/vmi": "^1.2.6",
     "core-js": "3.6.5",
     "es-module-lexer": "0.6.0",
     "es5-imcompatible-versions": "^0.1.62",
