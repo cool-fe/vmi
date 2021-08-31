@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.5 (2021-08-31)
+
+
+### Bug Fixes
+
+* 修复sass引用全局scss文件 ([6143bf2](https://github.com/cool-fe/vmi/commit/6143bf243aae9915fb9bfd8a4da1641f563f76d5))
+
+
+
+
+
 ## 1.2.4 (2021-08-27)
 
 **Note:** Version bump only for package @winfe/preset-built-vmi
