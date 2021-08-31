@@ -59,6 +59,18 @@ export default (api: IApi) => {
 
     memo.plugin('VueLoaderPlugin').use(require('vue-loader').VueLoaderPlugin);
 
+    const oneOfsMap = memo.module.rule('sass').oneOfs.values();
+
+    oneOfsMap.forEach((item) => {
+      item
+        .use('style-resources-loader')
+        .loader(require.resolve('style-resources-loader'))
+        .options({
+          patterns: require.resolve('@winfe/theme-helper'),
+        })
+        .end();
+    });
+
     return memo;
   });
 

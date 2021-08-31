@@ -66,20 +66,6 @@ export default (api: IApi) => {
       .library(packageName);
 
     memo.externals(externals);
-
-    // todo 暂时只对component打包生效，后续project的时候需要移到公共逻辑
-    const oneOfsMap = memo.module.rule('sass').oneOfs.values();
-
-    oneOfsMap.forEach((item) => {
-      item
-        .use('style-resources-loader')
-        .loader(require.resolve('style-resources-loader'))
-        .options({
-          patterns: require.resolve('@winfe/theme-helper'),
-        })
-        .end();
-    });
-
     memo
       .plugin('CleanWebpackPlugin')
       .use(require('clean-webpack-plugin').CleanWebpackPlugin);
