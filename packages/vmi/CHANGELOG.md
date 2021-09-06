@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.7 (2021-08-31)
+
+
+### Bug Fixes
+
+* 把处理scss全局变量的逻辑移到vmi下 ([747b411](https://github.com/cool-fe/vmi/commit/747b4116b98ad463e7b5ffebb368fdb617d94aa6))
+
+
+
+
+
 ## 1.2.6 (2021-08-31)
 
 **Note:** Version bump only for package @winfe/vmi
