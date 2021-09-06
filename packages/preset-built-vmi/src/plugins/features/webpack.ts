@@ -1,5 +1,4 @@
 import { IApi } from '@umijs/types';
-import { dirname } from 'path';
 
 export default (api: IApi) => {
   const { cwd } = api;
@@ -30,15 +29,15 @@ export default (api: IApi) => {
     memo.module
       .rule('vue')
       .test(/\.vue$/i)
-      .include.add([
-        cwd,
-        // client none compile, need add include
-        dirname(require.resolve('@winfe/client/package.json')),
-        // import module out of cwd using APP_ROOT
-        // issue: https://github.com/umijs/umi/issues/5594
-        ...(process.env.APP_ROOT ? [process.cwd()] : []),
-      ])
-      .end()
+      // .include.add([
+      //   cwd,
+      //   // client none compile, need add include
+      //   dirname(require.resolve('@winfe/client/package.json')),
+      //   // import module out of cwd using APP_ROOT
+      //   // issue: https://github.com/umijs/umi/issues/5594
+      //   ...(process.env.APP_ROOT ? [process.cwd()] : []),
+      // ])
+      // .end()
       .use('vue-loader')
       .loader(require.resolve('vue-loader'))
       .options({
@@ -74,7 +73,7 @@ export default (api: IApi) => {
     return memo;
   });
 
-  api.modifyBabelPresetOpts(function (opts, argvs) {
+  api.modifyBabelPresetOpts(function (opts) {
     return {
       ...opts,
       react: undefined,
