@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.8 (2021-09-06)
+
+
+### Bug Fixes
+
+* branch 'main'  into main ([c88989b](https://github.com/cool-fe/vmi/commit/c88989b0c1547460582c845056b3f9e978ec7797))
+
+
+
+
+
 ## 1.2.7 (2021-08-31)
 
 
