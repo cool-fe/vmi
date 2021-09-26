@@ -77,6 +77,8 @@ if (process.title === 'node') {
           process.env.NODE_ENV = 'production';
           if (process.env.APP_TYPE === 'material') {
             plugins.push(require.resolve('./plugins/component'));
+          } else if (process.env.APP_TYPE === 'materialDemo') {
+            plugins.push(require.resolve('./plugins/materialDemo'));
           }
         }
 

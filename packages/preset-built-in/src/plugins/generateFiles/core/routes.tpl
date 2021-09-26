@@ -17,3 +17,7 @@ export function getRoutes() {
 
   return routes;
 }
+
+export function getRouteBase(){
+  return '{{{config.base}}}'
+}

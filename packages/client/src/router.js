@@ -1,8 +1,8 @@
-import scrollBehavior from './router.scrollBehavior.js';
-import { getRoutes } from '@@/core/routes';
+import { getRouteBase, getRoutes } from '@@/core/routes';
 import { normalizeURL } from 'ufo';
 import Vue from 'vue';
 import Router from 'vue-router';
+import scrollBehavior from './router.scrollBehavior.js';
 
 const emptyFn = () => {};
 
@@ -10,7 +10,7 @@ Vue.use(Router);
 
 export const routerOptions = {
   mode: 'history',
-  base: '/',
+  base: getRouteBase() || '/',
   linkActiveClass: 'nuxt-link-active',
   linkExactActiveClass: 'nuxt-link-exact-active',
   scrollBehavior,
