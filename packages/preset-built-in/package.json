@@ -26,7 +26,7 @@
     "registry": "http://registry.npmjs.org/"
   },
   "dependencies": {
-    "@umijs/babel-preset-umi": "3.5.2",
+    "@umijs/babel-preset-umi": "3.5.17",
     "@umijs/bundler-webpack": "3.5.2",
     "@umijs/deps": "3.5.2",
     "@umijs/server": "3.5.2",
