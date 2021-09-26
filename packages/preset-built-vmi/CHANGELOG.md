@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.9 (2021-09-26)
+
+
+### Bug Fixes
+
+* branch 'main' of https://github.com/cool-fe/vmi into main ([6df37d6](https://github.com/cool-fe/vmi/commit/6df37d6853ae1854926d1745c30704d1383d8b48))
+
+
+
+
+
 ## 1.2.8 (2021-09-06)
 
 
